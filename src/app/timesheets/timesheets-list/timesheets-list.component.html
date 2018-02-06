@@ -1,0 +1,41 @@
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Timesheets
+      </h1>
+      <h2 class="subtitle">
+        View and edit your previous timesheets or create a new timesheet.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<hr>
+<h2>Create A New Timesheet <button (click)="openDialog()" [disabled]="timesheetService.timesheet.date" class="button is-info">Pick a Start Date</button> </h2>
+
+<timesheet-form [timesheet]="timesheetService.timesheet" *ngIf="timesheetService.timesheet.date"></timesheet-form>
+
+<hr>
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Previous Timesheets
+      </h1>
+      <h2 class="subtitle">
+        View and edit your previous timesheets or create a new timesheet.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<div *ngFor="let timesheet of timesheets | async" class="card">
+  <timesheet-detail [timesheet]='timesheet'></timesheet-detail>
+</div>
+
+<loading-spinner *ngIf="showSpinner"></loading-spinner>
+
+<hr>
+<button type="button" class="button is-danger" (click)='deleteTimesheets()'>Delete All Weeks</button>

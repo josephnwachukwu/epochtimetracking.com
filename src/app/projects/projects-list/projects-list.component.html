@@ -1,0 +1,23 @@
+<h1>Projects</h1>
+<p>List of Initiatives</p>
+
+<input [(ngModel)]="name" placeholder="Project Name ..." class="input">
+<!-- <input [(ngModel)]="client" placeholder="Client Name ..." class="input"> -->
+<div class="control">
+  <div class="select">
+    <select [(ngModel)]="client">
+    	<option *ngFor="let client of clients | async" [value]="client.content">
+	      {{ client.content }}
+	    </option>
+    </select>
+  </div>
+</div>
+<button class="button is-success" (click)="createProject()" [disabled]="name?.length < 5 || name?.length > 200">
+  Add Project
+</button>
+<hr>
+<div *ngFor="let project of projects | async">
+  <project-detail [project]="project"></project-detail>
+</div>
+
+

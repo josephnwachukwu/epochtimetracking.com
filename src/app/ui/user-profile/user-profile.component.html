@@ -1,0 +1,149 @@
+<div class="box" >
+  <div *ngIf="auth.user | async; then authenticated else guest">
+          <!-- template will replace this div -->
+  </div>
+</div>
+
+<!-- User NOT logged in -->
+<ng-template #guest class="box">
+  <h3>Howdy, GUEST</h3>
+  <p class="card-text">Login to get started...</p>
+  <button class="button" routerLink="/login">Login</button>
+</ng-template>
+<form>
+<!-- User logged in -->
+<ng-template #authenticated>
+  <div *ngIf="auth.user | async as user">
+    <h3> {{ user.displayName || 'New Member' }}</h3>
+    <p class="text-truncate">UID: {{ user.uid }}</p>
+    <img class="card-img-top" [src]="user.photoURL || 'https://api.adorable.io/avatars/109/fire.png'" width=50px>
+
+    <h3> Personal Information </h3>
+    <div class="field">
+      <label class="label">First Name</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.firstName" name="firstName" placeholder="Text input">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Last Name</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.lastName" name="lastName" placeholder="Text input">
+      </div>
+    </div>
+
+    <!--<div class="field">-->
+      <!--<div class="control">-->
+        <!--<label class="checkbox">-->
+          <!--<input type="checkbox" [(ngModel)]="user.isThroughAgency">-->
+          <!--I am directly employed through a company-->
+        <!--</label>-->
+      <!--</div>-->
+    <!--</div>-->
+
+      <h4>Employment</h4>
+      <div class="field">
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="employment" value="permanentlyEmployed" [(ngModel)]="user.employment">
+          I am permanently employed through a company
+        </label>
+        <br>
+        <label class="radio">
+          <input type="radio" name="employment" value="employedThroughAgency" [(ngModel)]="user.employment">
+          I work through a staffing agency
+        </label>
+        <br>
+        <label class="radio">
+          <input type="radio" name="employment" value="soleProprietor" [(ngModel)]="user.employment">
+          I am a sole proprietor who does business as a company or LLC.
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Company Name</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.company" name="company" placeholder="Text input">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Manager</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.manager" name="manager" placeholder="Text input">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Manager Email</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.managerEmail" name="managerEmail" placeholder="Text input">
+      </div>
+    </div>
+
+
+    <!--<div class="field">-->
+      <!--<div class="control">-->
+        <!--<label class="checkbox">-->
+          <!--<input type="checkbox" [(ngModel)]="user.isThroughAgency">-->
+          <!--I am employed through a recruiting agency-->
+        <!--</label>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div *ngIf="user.employment === 'employedThroughAgency'">
+    <h3>Agency Information</h3>
+
+    <div class="field">
+      <label class="label">Agency Name</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.agency.agencyName" placeholder="Agency XYZ" name="agencyName">
+      </div>
+    </div>
+
+    <h4>Agency Address</h4>
+
+    <div class="field">
+      <label class="label">Address Line 1</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.agency.address.addressLine1" placeholder="123 west lane rd" name="agency.addressLine1">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Address Line 2</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.agency.address.addressLine2" placeholder="Suite 302" name="agency.addressLine2">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">City</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.agency.address.city" placeholder="New York" name="agency.city">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">State</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.agency.address.state" placeholder="Text input" name="agency.state">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Zipcode</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="user.agency.address.zipcode" placeholder="10466" name="agency.zipcode">
+      </div>
+    </div>
+    </div>
+
+    <h3>Invoicing Information</h3>
+
+
+    <button class="button" (click)="updateUserProfile(user)">Update Info</button>
+  </div>
+</ng-template>
+</form>

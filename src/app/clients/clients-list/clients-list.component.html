@@ -1,0 +1,15 @@
+<h1>Clients</h1>
+<p>Clients</p>
+
+<input [(ngModel)]="content" placeholder="Add Client" class="input">
+
+
+<button class="button is-success" (click)="createClient()" [disabled]="content?.length < 2 || content?.length > 200">
+  Add Client
+</button>
+<hr>
+<div *ngFor="let client of clients | async">
+  <client-detail [client]="client"></client-detail>
+</div>
+
+

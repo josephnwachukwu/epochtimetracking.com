@@ -1,0 +1,24 @@
+
+
+
+<div class="field">
+  <label class="label">Week Ending:</label>
+  <div class="control">
+    <mat-form-field>
+	  <input
+		  matInput 
+		  [matDatepicker]="picker" 
+		  [matDatepickerFilter]="tss.startingMonday" 
+		  [(ngModel)]="date" 
+		  readOnly
+		  placeholder="Choose a date" 
+		  (dateChange)="tss.setStartDate('change', $event)"
+	  >
+  <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+  <mat-datepicker #picker ></mat-datepicker>
+</mat-form-field>
+  </div>
+</div>
+
+<button class="button is-danger" (click)="closeDialog()">Cancel</button> 
+<button class="button is-success" [disabled]="!date" (click)="closeDialog()">Create</button>
