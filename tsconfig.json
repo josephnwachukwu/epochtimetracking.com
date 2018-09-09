@@ -16,7 +16,9 @@
       "es2016",
       "dom"
     ],
-    "strict": true
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "module": "es2015"
   },
   "angularCompilerOptions": {
     "preserveWhitespaces": false
