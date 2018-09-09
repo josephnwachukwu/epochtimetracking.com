@@ -4,7 +4,7 @@ import { ClientService } from '../client.service';
 
 import { Client } from '../client-model';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'clients-list',

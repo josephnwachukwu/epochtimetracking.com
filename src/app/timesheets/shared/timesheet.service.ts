@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth'
 import { Timesheet } from './timesheet';
 import { WorkWeek } from './workweek.model'
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../../core/auth.service'
 

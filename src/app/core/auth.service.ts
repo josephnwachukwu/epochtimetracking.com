@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import * as firebase from 'firebase/app';
+import { firebase } from '@firebase/app';
+import { auth } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { NotifyService } from './notify.service';
 
-import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, startWith, tap, filter } from 'rxjs/operators';
 
 export class Address {
   addressLine1:string;
@@ -60,55 +61,48 @@ export class AuthService {
               private router: Router,
               private notify: NotifyService) {
 
-    this.user = this.afAuth.authState
-      .switchMap((user) => {
+    this.user = this.afAuth.authState.pipe(
+      switchMap(user => {
         if (user) {
-          //this.userData = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-          //console.log('ud',this.userData)
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
-          return Observable.of(null);
+          return of(null);
         }
-      });
+      })
+    );
 
-    //this.user.subscribe(
-    //  (data) => {
-    //    this.userData = data;
-    //    console.log('user Data', this.userData)
-    //  }
-    //).unsubscribe()
-    //this.user.unsubscribe();
   }
 
-  ////// OAuth Methods /////
+ ////// OAuth Methods /////
 
   googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
 
   githubLogin() {
-    const provider = new firebase.auth.GithubAuthProvider();
+    const provider = new auth.GithubAuthProvider();
     return this.oAuthLogin(provider);
   }
 
   facebookLogin() {
-    const provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new auth.FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 
   twitterLogin() {
-    const provider = new firebase.auth.TwitterAuthProvider();
+    const provider = new auth.TwitterAuthProvider();
     return this.oAuthLogin(provider);
   }
 
-  private oAuthLogin(provider: firebase.auth.AuthProvider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        this.notify.update('Welcome back to Epoch', 'success');
+  private oAuthLogin(provider: any) {
+    return this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(credential => {
+        this.notify.update('Welcome to Firestarter!!!', 'success');
         return this.updateUserData(credential.user);
       })
-      .catch((error) => this.handleError(error) );
+      .catch(error => this.handleError(error));
   }
 
   //// Anonymous Auth ////
@@ -157,11 +151,12 @@ export class AuthService {
 
   // Sends email allowing user to reset password
   resetPassword(email: string) {
-    const fbAuth = firebase.auth();
+    const fbAuth = auth();
 
-    return fbAuth.sendPasswordResetEmail(email)
+    return fbAuth
+      .sendPasswordResetEmail(email)
       .then(() => this.notify.update('Password update email sent', 'info'))
-      .catch((error) => this.handleError(error));
+      .catch(error => this.handleError(error));
   }
 
   signOut() {
@@ -194,7 +189,6 @@ export class AuthService {
       employment: user.employment || 'Not Set',
       agency: Object.assign({}, new Agency())
     };
-    //data.add(Object.assign({}, new Agency()));
     return userRef.set(data);
   }
 

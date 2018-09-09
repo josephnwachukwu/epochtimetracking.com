@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Upload } from './upload';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UploadService {

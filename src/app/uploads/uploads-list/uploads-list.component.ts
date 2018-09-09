@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../shared/upload.service';
 import { Upload } from '../shared/upload';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'uploads-list',

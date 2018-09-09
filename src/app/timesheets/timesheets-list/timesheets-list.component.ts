@@ -5,7 +5,7 @@ import { TimesheetService } from '../shared/timesheet.service';
 
 import { Timesheet } from '../shared/timesheet';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { StartDateComponent } from '../shared/components/start-date/start-date.component'
 

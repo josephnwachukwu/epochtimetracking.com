@@ -9,7 +9,7 @@ import { TimesheetService } from '../shared/timesheet.service';
 import { ProjectService } from '../../projects/project.service';
 import { ClientService } from '../../clients/client.service';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { WorkWeek } from '../shared/workweek.model'
 
 import { AuthService } from '../../core/auth.service'

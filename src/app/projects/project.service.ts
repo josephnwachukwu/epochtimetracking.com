@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 
 import { Project } from './project-model';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 interface NewProject {

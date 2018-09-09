@@ -6,7 +6,7 @@ import { ClientService } from '../../clients/client.service'
 import { Project } from '../project-model';
 import { Client } from '../../clients/client-model'
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'projects-list',

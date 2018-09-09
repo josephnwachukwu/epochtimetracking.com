@@ -27,7 +27,7 @@ import { ClientsModule } from './clients/clients.module';
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from 'angularfire2';
-export const firebaseConfig = environment.firebaseConfig;
+//export const firebaseConfig = environment.firebaseConfig;
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { StartDateComponent } from './timesheets/shared/components/start-date/start-date.component'
 
@@ -70,7 +70,7 @@ import {MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
   ],
   bootstrap: [
     AppComponent,
