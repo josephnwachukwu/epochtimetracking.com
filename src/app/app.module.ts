@@ -17,7 +17,8 @@ import { SharedModule } from './shared/shared.module';
 // import { ItemModule } from './items/shared/item.module';
 import { TimesheetModule } from './timesheets/shared/timesheet.module';
 
-import { UploadModule } from './uploads/shared/upload.module';
+//import { UploadModule } from './uploads/shared/upload.module';
+import { UploadsModule } from './uploads/uploads.module';
 import { UiModule } from './ui/shared/ui.module';
 // import { NotesModule } from './notes/notes.module';
 import { ProjectsModule } from './projects/projects.module';

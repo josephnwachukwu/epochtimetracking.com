@@ -29,12 +29,14 @@ export class ProjectService {
 
   getSnapshot(): Observable<Project[]> {
     // ['added', 'modified', 'removed']
-    return this.projectsCollection.snapshotChanges().map((actions) => {
-      return actions.map((a) => {
-        const data = a.payload.doc.data() as Project;
-        return { id: a.payload.doc.id, name: data.name, client: data.client, time: data.time };
-      });
-    });
+    return this.projectsCollection.snapshotChanges().pipe(
+      map((actions:any[]) => {
+        return actions.map((a) => {
+          const data = a.payload.doc.data() as Project;
+          return { id: a.payload.doc.id, name: data.name, client: data.client, time: data.time };
+        });
+      })
+    )
   }
 
   getProject(id: string) {

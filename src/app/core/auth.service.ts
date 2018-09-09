@@ -7,55 +7,18 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { NotifyService } from './notify.service';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, startWith, tap, filter } from 'rxjs/operators';
 
-export class Address {
-  addressLine1:string;
-  addressLine2:string;
-  city:string;
-  state:string;
-  zipcode:string;
-  constructor() {}
-}
 
-export class Agency {
-  agencyName:string;
-  address:any;
-  constructor() {
-    this.address = Object.assign({}, new Address())
-  }
-  //address: new Address()
-}
+import { User } from '../shared/models/user.model'
 
-export class User {
-  uid: string;
-  email?: string | null;
-  photoURL?: string;
-  userName?: string;
-  firstName?:string;
-  lastName?:string;
-  position?:string;
-  isAdmin?:boolean;
-  manager?:string;
-  employment?:string;
-  company?:string;
-  manger?:string;
-  managerEmail?:string;
-
-  //Agency Information
-  isThroughAgency?:boolean;
-  agency?:any;
-  constructor() {
-    this.agency = Object.assign({}, new Agency())
-  }
-}
 
 @Injectable()
 export class AuthService {
 
-  user: Observable<User | null>;
-  userData:any;
+  user: Observable<any>;
+  ///userData:any;
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
@@ -99,7 +62,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(credential => {
-        this.notify.update('Welcome to Firestarter!!!', 'success');
+        //this.notify.update('Welcome to Firestarter!!!', 'success');
         return this.updateUserData(credential.user);
       })
       .catch(error => this.handleError(error));
@@ -125,12 +88,30 @@ export class AuthService {
   emailSignUp(email: string, password: string, firstName: string, lastName: string, userName: string, employment:string, agreeToTerms:boolean) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log('employment', employment)
-        user.firstName = firstName;
-        user.lastName = lastName;
-        user.userName = userName;
-        user.employment = employment;
-        user.agency = {}
+
+        // Add propterties to user object
+
+        Object.defineProperties(user, {
+          firstName: {
+            value: firstName
+          },
+          lastName: {
+            value: lastName
+          },
+          userName: { 
+            value: userName
+          },
+          employment: {
+            value: employment
+          }
+        })
+
+
+        // user.firstName = firstName;
+        // user.lastName = lastName;
+        // user.userName = userName;
+        // user.employment = employment;
+        //user.agency = {}
         //user.add()
         //user.agency = Object.assign({}, new Agency())
         //this.notify.update('Welcome to Epoch!!!', 'success');
@@ -172,11 +153,11 @@ export class AuthService {
   }
 
   // Sets user data to firestore after succesful login
-  private updateUserData(user: User) {
+  private updateUserData(user: any) {
 
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    const data: User = {
+      
+    const data = {
       uid: user.uid,
       email: user.email || null,
       userName: user.userName || 'New Member',
@@ -187,8 +168,8 @@ export class AuthService {
       manager: user.manager || 'Manager Not Set',
       isAdmin: user.isAdmin || false,
       employment: user.employment || 'Not Set',
-      agency: Object.assign({}, new Agency())
     };
+
     return userRef.set(data);
   }
 

@@ -8,6 +8,7 @@ import { Timesheet } from './timesheet';
 import { WorkWeek } from './workweek.model'
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth.service'
 
@@ -43,29 +44,30 @@ export class TimesheetService {
 
   // Return an observable list of Items
   getItemsList =  (): Observable<Timesheet[]> => {
-    return this.timesheetsCollection.snapshotChanges().map((arr) => {
-      return arr.map((snap) => {
-        const data = snap.payload.doc.data() as Timesheet;
-        return {
-          id: snap.payload.doc.id,
-          title: data.title,
-          status: data.status,
-          projects: data.projects,
-          body: data.body,
-          user: data.user,
-          active: data.active,
-          manager: data.manager,
-          overlapping: data.overlapping,
-          managerEmail: data.managerEmail,
-          userEmail: data.userEmail,
-          weekEnding: data.weekEnding,
-          weekStarting: data.weekStarting,
-          date: data.date,
-          uid: data.uid,
-        }
-      });
-      //Object.assign(snap.payload.doc.data() as Timesheet, { $key: snap.key }) );
-    })
+    return this.timesheetsCollection.snapshotChanges().pipe(
+      map((arr:any[]) => {
+        return arr.map((snap) => {
+          const data = snap.payload.doc.data() as Timesheet;
+          return {
+            id: snap.payload.doc.id,
+            title: data.title,
+            status: data.status,
+            projects: data.projects,
+            body: data.body,
+            user: data.user,
+            active: data.active,
+            manager: data.manager,
+            overlapping: data.overlapping,
+            managerEmail: data.managerEmail,
+            userEmail: data.userEmail,
+            weekEnding: data.weekEnding,
+            weekStarting: data.weekStarting,
+            date: data.date,
+            uid: data.uid,
+          }
+        });
+      })
+    )
   }
 
   // Return a single observable timesheet

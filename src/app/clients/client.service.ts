@@ -29,12 +29,14 @@ export class ClientService {
 
   getSnapshot(): Observable<Client[]> {
     // ['added', 'modified', 'removed']
-    return this.clientsCollection.snapshotChanges().map((actions) => {
-      return actions.map((a) => {
-        const data = a.payload.doc.data() as Client;
-        return { id: a.payload.doc.id, content: data.content, time: data.time };
-      });
-    });
+    return this.clientsCollection.snapshotChanges().pipe(
+      map((actions) => {
+        return actions.map((a) => {
+          const data = a.payload.doc.data() as Client;
+          return { id: a.payload.doc.id, content: data.content, time: data.time };
+        });
+      })
+    )
   }
 
   getClient(id: string) {
