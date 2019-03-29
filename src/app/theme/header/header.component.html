@@ -1,0 +1,95 @@
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  
+  <div class="navbar-brand">
+    <a class="navbar-item logo" routerLink="/">
+      <img src="assets/images/Logomakr_7h3n2i.png" width="30px" alt="Epoch Time Tracking"/> Epoch Time Tracking
+    </a>
+
+    <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+    <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+    <button class="button navbar-burger" data-target="navMenu" (click)="toggleCollapse()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- This "nav-menu" is hidden on mobile -->
+  <!-- Add the modifier "is-active" to display it on mobile -->
+  <div class="navbar-menu" [ngClass]="{'is-active': show}">
+    <div class="navbar-end">
+      <div *ngIf="auth.user | async; then authenticated else guest">
+      </div>
+    </div>
+  </div>
+  
+</nav>
+
+
+<ng-template #guest>
+  <a class="navbar-item" routerLink="/login" (click)="toggleCollapse()">
+      Features
+  </a>
+
+  <a class="navbar-item" routerLink="/login" (click)="toggleCollapse()">
+      Log In
+  </a>
+  
+  <a class="navbar-item" routerLink="/login" (click)="toggleCollapse()">
+      Sign Up
+  </a>
+  
+</ng-template>
+
+<ng-template #authenticated>
+    <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link">
+        Add
+      </a>
+
+      <div class="navbar-dropdown">
+        <a class="navbar-item" routerLink="/projects" (click)="toggleCollapse()">
+          Projects
+        </a>
+        <a class="navbar-item" routerLink="/clients" (click)="toggleCollapse()">
+          Clients
+        </a>
+      </div>
+    </div>
+    
+    <a class="navbar-item" routerLink="/timesheets" (click)="toggleCollapse()">
+      Timesheets
+    </a>
+    <a class="navbar-item has-dropdown is-hoverable" (click)="toggleCollapse()">
+      <a class="navbar-link">
+        Expenses
+      </a>
+      <div class="navbar-dropdown">
+        <a class="navbar-item" routerLink="/expenses" (click)="toggleCollapse()">
+          My Expenses
+        </a>
+        <a class="navbar-item" routerLink="/uploads" (click)="toggleCollapse()">
+          My Reciepts
+        </a>
+      </div>
+    </a>
+    <a class="navbar-item" routerLink="/reports">
+      Reports
+    </a>
+
+    <a *ngIf="auth.user | async as user"class="navbar-item  has-dropdown is-hoverable">
+        <a class="navbar-link">
+          <i class="fa fa-user-circle" aria-hidden="true"></i> 
+          {{ user.displayName }} 
+        </a>
+      <div class="navbar-dropdown">
+        <a class="navbar-item" routerLink="/profile" (click)="toggleCollapse()">
+          My Profile
+        </a>
+        <a class="navbar-item" (click)="logout()" (click)="toggleCollapse()">
+          Logout
+        </a>
+      </div>
+    </a>
+
+</ng-template>

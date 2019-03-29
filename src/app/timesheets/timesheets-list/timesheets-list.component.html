@@ -1,41 +1,70 @@
-<section class="hero is-info">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Timesheets
-      </h1>
-      <h2 class="subtitle">
-        View and edit your previous timesheets or create a new timesheet.
-      </h2>
+<section>
+  <div class="container">
+
+    <div class="level">
+      <div class="level-left">
+        <h1 class="title">
+           My Timesheets
+        </h1>
+      </div>
     </div>
+    
+
+    <nav class="level">
+  <!-- Left side -->
+  <div class="level-left">
+    <div class="level-item">
+      <p class="subtitle is-5">
+        <strong></strong> timesheets
+      </p>
+    </div>
+    <div class="level-item">
+      <div class="field has-addons">
+        <p class="control">
+          <input class="input" type="text" placeholder="Find a timesheet">
+        </p>
+        <p class="control">
+          <button class="button">
+            Search
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right side -->
+  <div class="level-right">
+    <div class="field has-addons">
+      <p class="control">
+        <button (click)="openDialog()" [disabled]="timesheetService.timesheet.date" class="button is-success">+ New Timesheet</button>
+      </p>
+      <!-- <p class="control">
+        <button type="button" class="button is-danger" (click)='deleteTimesheets()'> - Delete All Timesheets</button>
+      </p> -->
+    </div>
+  </div>
+</nav>
+
+
+    
   </div>
 </section>
 
-<hr>
-<h2>Create A New Timesheet <button (click)="openDialog()" [disabled]="timesheetService.timesheet.date" class="button is-info">Pick a Start Date</button> </h2>
 
-<timesheet-form [timesheet]="timesheetService.timesheet" *ngIf="timesheetService.timesheet.date"></timesheet-form>
-
-<hr>
-
-<section class="hero is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Previous Timesheets
-      </h1>
-      <h2 class="subtitle">
-        View and edit your previous timesheets or create a new timesheet.
-      </h2>
-    </div>
+<section>
+  <div class="container">
+    <timesheet-form [timesheet]="timesheetService.timesheet" *ngIf="timesheetService.timesheet.date"></timesheet-form>
   </div>
 </section>
 
+
+<section>
+  <div class="container">
 <div *ngFor="let timesheet of timesheets | async" class="card">
   <timesheet-detail [timesheet]='timesheet'></timesheet-detail>
 </div>
 
 <loading-spinner *ngIf="showSpinner"></loading-spinner>
 
-<hr>
-<button type="button" class="button is-danger" (click)='deleteTimesheets()'>Delete All Weeks</button>
+</div>
+</section>

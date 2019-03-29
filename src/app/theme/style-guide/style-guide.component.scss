@@ -1,0 +1,35 @@
+@import '../styles/style.scss';
+
+
+#style-guide {
+	background-color: #F1F1F1;
+}
+
+.swatch{
+	height: 100px;
+	width: 100%;
+}
+
+.violet {
+	background-color: $violet;
+}
+
+.aqua-green {
+	background-color: $aqua-green;
+}
+
+.blue-gray {
+	background-color: $blue-gray
+}
+
+.afternoon-blue {
+	background-color: $afternoon-blue;
+}
+
+.pastelle-blue {
+	background-color: $pastelle-blue;
+}
+
+.carnation {
+	background-color: $carnation;
+}

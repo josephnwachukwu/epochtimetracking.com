@@ -17,7 +17,7 @@ export class UploadPageComponent {
   task: AngularFireUploadTask;
 
   // Progress monitoring
-  percentage: Observable<any>;
+  percentage: Observable<number>;
 
   snapshot: Observable<any>;
 
@@ -36,7 +36,7 @@ export class UploadPageComponent {
     this.isHovering = event;
   }
 
-  startUpload(event:any) {
+  startUpload(event: FileList) {
     // The File object
     const file = event.item(0);
 
@@ -59,9 +59,9 @@ export class UploadPageComponent {
     this.percentage = this.task.percentageChanges();
     this.snapshot = this.task.snapshotChanges().pipe(
       tap(snap => {
-        if (snap!.bytesTransferred === snap!.totalBytes) {
+        if (snap.bytesTransferred === snap.totalBytes) {
           // Update firestore on completion
-          this.db.collection('photos').add({ path, size: snap!.totalBytes });
+          this.db.collection('photos').add({ path, size: snap.totalBytes });
         }
       }),
       finalize(() => this.downloadURL = this.storage.ref(path).getDownloadURL() )
@@ -72,7 +72,7 @@ export class UploadPageComponent {
   }
 
   // Determines if the upload task is active
-  isActive(snapshot:any) {
+  isActive(snapshot) {
     return (
       snapshot.state === 'running' &&
       snapshot.bytesTransferred < snapshot.totalBytes

@@ -1,25 +1,37 @@
-<h3 [ngClass]="{ 'strike-out': timesheet.status === 'rejected' }">
-  {{ timesheet.title || 'missing title' }} |  id: {{ timesheet.id }}
-</h3>
+
+
+<header class="card-header">
+    <p class="card-header-title" [ngClass]="{ 'strike-out': timesheet.status === 'rejected' }">
+		  {{ timesheet.title || 'missing title' }} |  id: {{ timesheet.id }}
+    </p>
+    <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+
 <div class="content columns" *ngFor="let project of timesheet.projects">
 	<div class="column is-2">
-		<label>Initiative</label>
-		<input
-			class="input"
-			[(ngModel)]="project.initiative"
-			[disabled]="true"
-			>
-	</div>
-	<div class="column is-2">
-		<label>Client</label>
+		<label>Project</label>
 		<input
 			class="input"
 			[(ngModel)]="project.client"
 			[disabled]="true"
 			>
 	</div>
+	<div class="column is-2">
+		<label>Task</label>
+		<input
+			class="input"
+			[(ngModel)]="project.initiative"
+			[disabled]="true"
+			>
+	</div>
+	
 	<div class="column is-1">
-		<label>Monday</label>
+		<label>Mon</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.monday.hours"
@@ -27,7 +39,7 @@
 			>
 	</div>
 	<div class="column is-1">
-		<label>Tuesday</label>
+		<label>Tue</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.tuesday.hours"
@@ -35,7 +47,7 @@
 			>
 	</div>
 	<div class="column is-1">
-		<label>Wednesday</label>
+		<label>Wed</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.wednesday.hours"
@@ -43,7 +55,7 @@
 			>
 	</div>
 	<div class="column is-1">
-		<label>Thursday</label>
+		<label>Thu</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.thursday.hours"
@@ -51,7 +63,7 @@
 			>
 	</div>
 	<div class="column is-1">
-		<label>Friday</label>
+		<label>Fri</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.friday.hours"
@@ -59,7 +71,7 @@
 			>
 	</div>
 	<div class="column is-1">
-		<label>Saturday</label>
+		<label>Sat</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.saturday.hours"
@@ -67,7 +79,7 @@
 			>
 	</div>
 	<div class="column is-1">
-		<label>Sunday</label>
+		<label>Sun</label>
 		<input
 			class="input"
 			[(ngModel)]="project.week.sunday.hours"
@@ -83,15 +95,22 @@
 			>
 	</div>
 </div>
-
+</div>
 <div class="card-content">
   Timesheet Status: {{ timesheet.status }}<br>
 </div>
 
 <div class="card-footer">
-  <!--<span class="button is-small is-info card-footer-item" (click)='updateTimeStamp()'>Update Status</span>-->
-  <span class="button is-small is-info card-footer-item" *ngIf='timesheet.status === "draft"' (click)='updateStatus(timesheet)'>Submit for Approval</span>
-  <span class="button is-small is-warning card-footer-item" *ngIf='timesheet.status !== "submitted"' (click)='updateActive(true)'>Edit</span>
-  <span class="button is-small is-danger card-footer-item" (click)='deleteTimesheet()'>Delete</span>
-  <span class="button is-small is-success card-footer-item" (click)='timesheetSvc.ConvertToCSV2(timesheet)'>Export to Excel</span>
+  <div class="card-footer-item" *ngIf='timesheet.status === "draft"' > 
+  	<a (click)='updateStatus(timesheet)'>Submit</a>
+  </div>
+  <div class="card-footer-item" *ngIf='timesheet.status !== "submitted"'>
+	<a (click)='updateActive(true)'>Edit</a>
+  </div>
+  <div class="card-footer-item">
+	<a (click)='deleteTimesheet()'>Delete</a>
+  </div>
+  <div class="card-footer-item">
+	<a (click)='timesheetSvc.ConvertToCSV2(timesheet)'>Export</a>
+  </div>
 </div>

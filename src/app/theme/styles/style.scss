@@ -1,0 +1,6 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+.login-gradient {
+	background-image: linear-gradient(240deg, $violet, $aqua-green);
+}

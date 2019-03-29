@@ -10,21 +10,19 @@ import { AppComponent } from './app.component';
 // Core
 import { CoreModule } from './core/core.module';
 
+// Auth
+import { AuthModule } from './auth/auth.module'
 // Shared/Widget
 import { SharedModule } from './shared/shared.module';
 
 // Feature Modules
-// import { ItemModule } from './items/shared/item.module';
 import { TimesheetModule } from './timesheets/shared/timesheet.module';
-
-//import { UploadModule } from './uploads/shared/upload.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { UiModule } from './ui/shared/ui.module';
-// import { NotesModule } from './notes/notes.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ClientsModule } from './clients/clients.module';
 ///// End FireStarter
-
+import { ReadmePageComponent } from './readme-page/readme-page.component';
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from 'angularfire2';
@@ -40,16 +38,15 @@ import {MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule, } from '@angular/material';
 
-// Directives
-//import { HoursMaskDirective } from './shared/directives/hours-mask.directive';
-//import { NumbersOnlyDirective } from './shared/directives/numbersOnly.directive'
+// Theme, Header, Footer
+import { ThemeModule } from './theme/theme.module';
 
-
+// Services
+import { AppConfigService } from './app.config'
 @NgModule({
   declarations: [
     AppComponent,
-    //HoursMaskDirective,
-    //NumbersOnlyDirective,
+    ReadmePageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,21 +55,21 @@ import {MatDatepickerModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    // ItemModule,
     UiModule,
-    // NotesModule,
     ProjectsModule,
     ClientsModule,
     TimesheetModule,
-
+    AuthModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatDialogModule,
     MatInputModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    ThemeModule,
     AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
   ],
+  providers: [AppConfigService],
   bootstrap: [
     AppComponent,
   ],

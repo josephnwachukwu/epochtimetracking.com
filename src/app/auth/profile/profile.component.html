@@ -1,0 +1,75 @@
+<div class="section">
+  <div *ngIf="auth.user | async; then authenticated else guest">
+          <!-- template will replace this div -->
+  </div>
+</div>
+
+<!-- User NOT logged in -->
+<ng-template #guest class="box">
+  <h3>Howdy, GUEST</h3>
+  <p class="card-text">Login to get started...</p>
+  <button class="button" routerLink="/login">Login</button>
+</ng-template>
+
+<!-- User logged in -->
+<ng-template #authenticated>
+  <div class="card" *ngIf="auth.user | async as user">
+    <header class="card-header">
+    <p class="card-header-title">
+      My Profile
+    </p>
+    <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img class="card-img-top" [src]="user.photoURL || 'https://api.adorable.io/avatars/109/fire.png'" width=50px>
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4">{{ user.displayName }}</p>
+        <p class="subtitle is-6">{{ user.email }}</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input" [value]='user.displayName || "please enter a name"'>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input" [value]='user.email || "please enter an email"'>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Manager's Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input" [value]='user.displayName || "please enter an email"'>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Manager's Email</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input" [value]='user.email || "please enter an email"'>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">Edit</a>
+  </footer>
+</div>
+</ng-template>

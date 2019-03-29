@@ -1,165 +1,252 @@
-<h3>New Timesheet</h3>
-<hr>
-<label class="label">Name: </label>
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      <label class="label">Name: </label>
 
 <input placeholder="Item Title" class="input"
 [(ngModel)]="timesheet.title"
 required minlength="2" maxlength="50"
 #title='ngModel' autofocus>
+    </p>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="columns" *ngFor="let project of timesheet.projects">
 
-<div class="content columns" *ngFor="let project of timesheet.projects">
-	<div class="column is-2">
-		<label>Project / Initiative<br><br></label>
-		<div class="select">
-		  <select [(ngModel)]="project.initiative">
-		    <option selected>Select Initiative</option>
-		    <option *ngFor="let proj of projectsList" [value]="proj.name">
-	      {{ proj.name }}
-	    </option>
-		  </select>
-		</div>
-	</div>
-	<div class="column is-2">
-		<label>Client<br><br></label>
-		<div class="select">
-		  <select [(ngModel)]="project.client">
-		    <option selected>Select Client</option>
-		    <option *ngFor="let client of clientsList" [value]="client.content">
-		      {{ client.content }}
-		    </option>
-		  </select>
-		</div>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.monday.day || 'Monday'}}</label>
+			<div class="column is-2">
+				<div class="field">
+					<label class="label">Project / Initiative</label>
+				  <div class="control">
+				    <div class="select is-primary">
+				      <select [(ngModel)]="project.initiative">
+						    <option selected>Select Initiative</option>
+						    <option *ngFor="let proj of projectsList" [value]="proj.name">
+					      {{ proj.name }}
+					    </option>
+						  </select>
+				    </div>
+				  </div>
+				</div>
+			</div>
 
-		<input
-			[(ngModel)]="project.week.monday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.tuesday.day || 'Tuesday'}}</label>
-		<input
-			[(ngModel)]="project.week.tuesday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.wednesday.day || 'Wednesday'}}</label>
-		<input
-			[(ngModel)]="project.week.wednesday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.thursday.day || 'Thursday'}}</label>
-		<input
-			[(ngModel)]="project.week.thursday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.friday.day || 'Friday'}}</label>
-		<input
-			[(ngModel)]="project.week.friday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.saturday.day || 'Saturday'}}</label>
-		<input
-			[(ngModel)]="project.week.saturday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<label>{{ project.week.sunday.day || 'Sunday'}}</label>
-		<input
-			[(ngModel)]="project.week.sunday.hours"
-			class="input"
-			type='text'
-			placeholder="0"
-			minlength="1"
-			maxlength="2"
-			min="0"
-  			max="24"
-			required
-			hoursMask
-      numbersOnly
-			(change)="calculateHours(project)"
-		>
-	</div>
-	<div class="column is-1">
-		<strong>Total<br><br></strong>
-		<input
-			class="input"
-			type='text'
-			[disabled]="true"
-			[(ngModel)]="project.total"
-		>
-	</div>
+			<div class="column is-2">
+				<div class="field">
+					<label class="label">Client</label>
+				  <div class="control">
+				    <div class="select is-primary">
+				      <select [(ngModel)]="project.client">
+					    <option selected>Select Client</option>
+					    <option *ngFor="let client of clientsList" [value]="client.content">
+					      {{ client.content }}
+					    </option>
+					  </select>
+				    </div>
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.monday.day || 'Mon'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.monday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.tuesday.day || 'Tue'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.tuesday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.wednesday.day || 'Wed'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.wednesday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.thursday.day || 'Thu'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.thursday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.friday.day || 'Fri'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.friday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.saturday.day || 'Sat'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.saturday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">{{ project.week.sunday.day || 'Sun'}}</label>
+				  <div class="control">
+
+				      <input
+							[(ngModel)]="project.week.sunday.hours"
+							class="input"
+							type='text'
+							placeholder="0"
+							minlength="1"
+							maxlength="2"
+							min="0"
+				  			max="24"
+							required
+							hoursMask
+				      numbersOnly
+							(change)="calculateHours(project)"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="field">
+				<label class="label">Total</label>
+				  <div class="control">
+
+				      <input
+						class="input"
+						type='text'
+						[disabled]="true"
+						[(ngModel)]="project.total"
+						>
+
+				  </div>
+				</div>
+			</div>
+
+      </div>
+      <div class="level">
+      	<div class="level-left">
+      		<button class="button is-info"
+	(click)='addProject()'>+ Add Another Project</button>
+      	</div>
+      </div>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <button href="#" class="card-footer-item" (click)='createTimesheet()'
+	[disabled]="!title.valid">Save</button>
+    <a href="#" class="card-footer-item">Cancel</a>
+  </footer>
 </div>
+
+<!--  -->
 
 
 <div *ngIf="title.dirty">
