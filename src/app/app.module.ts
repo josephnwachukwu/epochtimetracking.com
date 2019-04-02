@@ -17,10 +17,12 @@ import { SharedModule } from './shared/shared.module';
 
 // Feature Modules
 import { TimesheetModule } from './timesheets/shared/timesheet.module';
-import { UploadsModule } from './uploads/uploads.module';
+//import { UploadsModule } from './uploads/uploads.module';
 import { UiModule } from './ui/shared/ui.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ClientsModule } from './clients/clients.module';
+import { DashboardModule } from './dashboard/dashboard.module'
+
 ///// End FireStarter
 import { ReadmePageComponent } from './readme-page/readme-page.component';
 import { environment } from '../environments/environment';
@@ -67,6 +69,7 @@ import { AppConfigService } from './app.config'
     MatNativeDateModule,
     MatFormFieldModule,
     ThemeModule,
+    DashboardModule,
     AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
   ],
   providers: [AppConfigService],

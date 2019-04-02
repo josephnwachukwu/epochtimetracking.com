@@ -36,40 +36,79 @@
         <p class="subtitle is-6">{{ user.email }}</p>
       </div>
     </div>
-
+    
     <div class="content">
+      <h2>Your Information</h2>
+
       <div class="field">
         <label class="label">Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Text input" [value]='user.displayName || "please enter a name"'>
+          <input class="input" type="text" placeholder="Text input" [(ngModel)]="user.displayName" [value]='user.displayName || "please enter a name"'>
         </div>
       </div>
 
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Text input" [value]='user.email || "please enter an email"'>
-        </div>
-      </div>
+      <hr> 
+
+      <h2 class="title">Manager Information</h2>
+      <p class="" *ngIf="!user.managerVerified"> Your Manager has still not been verified. Your timesheets cannot not be approved until your manager has verified themselves. An email has been sent to your manager using the email that you provided. </p>
 
       <div class="field">
         <label class="label">Manager's Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Text input" [value]='user.displayName || "please enter an email"'>
+          <input class="input" type="text" placeholder="Text input" [(ngModel)]="user.managerName" [value]='user.managerName || "please enter an email"'>
+        </div>
+      </div>
+  
+      <div class="field">
+        <label class="label">Manager's Email</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input" [(ngModel)]="user.managerEmail" [value]='user.managerEmail || "please enter your managers email"'>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>Business Information</h2>
+      <p>This information will be used for your invoicing information and for tax purposes</p>
+
+      <div class="field">
+        <label class="label">Business Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="please enter your business name" [(ngModel)]="user.businessName" [value]='user.businessName || "please enter your business name"'>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label class="label">Tax Id Type</label>
+        <div class="control">
+          <div class="select">
+            <select [(ngModel)]="user.taxIdType">
+              <option [value]="ssn">Social Security Number</option>
+              <option [value]="ein">Employer Identification</option>
+            </select>
+          </div>
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Manager's Email</label>
+        <label class="label">Tax ID</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Text input" [value]='user.email || "please enter an email"'>
+          <input class="input" type="text" placeholder="please enter your business name" [(ngModel)]="user.taxID" [value]='user.taxID || "please enter your business name"'>
         </div>
+      </div>
+
+      <hr>
+
+      <h2>Employer Information</h2>
+      <p>This information will be used to send invoices to your employer</p>
+
+      <hr>
+
+      <div class="field">
+        <button (click)="update(user)" class="button is-info">Update Profile</button>
       </div>
 
     </div>
   </div>
-  <footer class="card-footer">
-    <a href="#" class="card-footer-item">Edit</a>
-  </footer>
 </div>
 </ng-template>

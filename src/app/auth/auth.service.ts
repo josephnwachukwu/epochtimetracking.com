@@ -13,8 +13,18 @@ import { switchMap, startWith, tap, filter } from 'rxjs/operators';
 interface User {
   uid: string;
   email?: string | null;
-  photoURL?: string;
+  photoURL?: string | null;
   displayName?: string;
+  companyName?: string;
+  companyID?: string | null;
+  tier?: string | null;
+  managerName?: string | null;
+  managerID?: string | null;
+  managerVerified?: boolean | null,
+  managerEmail?: string | null,
+  businessName?: string | null,
+  taxIdType?: string | null,
+  taxID?: string | null,
 }
 
 @Injectable()
@@ -104,6 +114,8 @@ export class AuthService {
       .then(credential => {
         this.notify.update('Welcome back!', 'success');
         return this.updateUserData(credential.user);
+        alert('hi')
+        this.router.navigate(['/dashboard']);
       })
       .catch(error => this.handleError(error));
   }
@@ -131,15 +143,26 @@ export class AuthService {
   }
 
   // Sets user data to firestore after succesful login
-  private updateUserData(user: User) {
+  updateUserData(user: User) {
 
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
+    console.log(user);
     const data: User = {
       uid: user.uid,
       email: user.email || null,
       displayName: user.displayName || 'nameless user',
       photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
+      companyName: user.companyName || null,
+      companyID: user.companyID || null,
+      tier: user.tier || 'starter',
+      managerName: user.managerName || null,
+      managerID: user.managerID || null,
+      managerVerified: user.managerVerified || false,
+      managerEmail: user.managerEmail || null,
+      businessName: user.businessName || null,
+      taxIdType: user.taxIdType || null,
+      taxID: user.taxID || null,
+
     };
     return userRef.set(data);
   }

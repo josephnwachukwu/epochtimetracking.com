@@ -13,4 +13,7 @@ export class ProfileComponent {
   logout() {
     this.auth.signOut();
   }
+  update = (user) => {
+  	this.auth.updateUserData(user)
+  }
 }
