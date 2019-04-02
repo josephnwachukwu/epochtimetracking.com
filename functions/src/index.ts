@@ -18,23 +18,24 @@ const mailTransport = nodemailer.createTransport({
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-export const helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
-});
+// export const helloWorld = functions.https.onRequest((request, response) => {
+//  response.send("Hello from Firebase!");
+// });
 
 
-export const testEmail = functions.firestore.document('users/{uid}')
+export const managerInvite = functions.firestore.document('users/{uid}')
 .onUpdate((change, context) => {
 
 	const newValue = change.after.data();
 	const previousValue = change.before.data();
 	const managerEmail = newValue!.managerEmail as string;
-
+  const managerName = newValue!.managerName as string;
+  
 	const mailOptions = {
 	    from: '"Epochtimetracking" <noreply@firebase.com>',
 	    to: managerEmail,
 	    subject: 'You have been added as a manager',
-	    text: 'hello this is a test'
+	    html: `<h1>Hello ${managerName}<h1><br>`
 	};
 	if(newValue!.managerEmail !== previousValue!.managerEmail) {
 		console.log('managers email as changed', managerEmail);
