@@ -23,18 +23,28 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 
-export const testEmail = functions.firestore.document('users/{uid}')
+export const testEmail = functions.firestore.document('clients/{uid}')
 .onUpdate((change, context) => {
 
 	const newValue = change.after.data();
 	const previousValue = change.before.data();
 	const managerEmail = newValue!.managerEmail as string;
+	const managerName = newValue!.managerName as string;
+	const clientName = newValue!.clientName as string;
+	const userName = newValue!.userName as string;
+	const clientId = newValue!.uid as string;
+
 
 	const mailOptions = {
 	    from: '"Epochtimetracking" <noreply@firebase.com>',
 	    to: managerEmail,
-	    subject: 'You have been added as a manager',
-	    text: 'hello this is a test'
+	    subject: `You have been added as a manager at ${clientName}`,
+	    html: `<h1>Hi ${managerName}</h1>
+	    <br>
+	    <p>You have been listed on epochtimetracking as a mananger for ${userName} at ${clientName}.</p>
+	    <p>Epoch Time Tracking is an application built for better time management and seamless integrations for making contracting easier.</p>
+	    <p>If you are joseph's manager click <a href="https://epochtimetracking.com/manager/onboarding?clientID=${clientId}">here</a> to be onboarded as a manager</p>
+	    <p>Thank You</p>` 
 	};
 	if(newValue!.managerEmail !== previousValue!.managerEmail) {
 		console.log('managers email as changed', managerEmail);
