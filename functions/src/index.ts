@@ -18,12 +18,14 @@ const mailTransport = nodemailer.createTransport({
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-export const helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
-});
+// export const helloWorld = functions.https.onRequest((request, response) => {
+//  response.send("Hello from Firebase!");
+// });
 
 
-export const testEmail = functions.firestore.document('clients/{uid}')
+
+export const managerInvite = functions.firestore.document('clients/{id}')
+
 .onUpdate((change, context) => {
 
 	const newValue = change.after.data();
