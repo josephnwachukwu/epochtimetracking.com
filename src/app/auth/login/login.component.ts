@@ -49,7 +49,6 @@ export class LoginComponent {
 
   private afterSignIn() {
     // Do after login stuff here, such router redirects, toast messages, etc.
-    alert('hi')
     this.router.navigate(['/dashboard']);
   }
 
