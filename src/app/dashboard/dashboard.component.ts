@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { ClientFormComponent } from '../clients/client-form/client-form.component';
-
 import { ClientService }  from '../clients/client.service';
-
 import { Client } from '../clients/client.model'
 
 import { Observable } from 'rxjs';
@@ -14,7 +13,9 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('addClient')
-  clients: Observable<Client[]>
+
+  clients: Observable<any[]>
+
   addClientModalActive:boolean = false;
   constructor(public clientService: ClientService) { 
   	console.log(this.addClientModalActive)

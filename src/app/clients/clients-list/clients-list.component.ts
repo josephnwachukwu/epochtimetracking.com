@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ClientService } from '../client.service';
-
 import { Client } from '../client.model';
 
 import { Observable } from 'rxjs';
@@ -15,13 +14,12 @@ import { AuthService } from '../../core/auth.service'
 })
 export class ClientsListComponent implements OnInit {
 
-  clients: Observable<Client[]>;
+  clients: Observable<any[]>;
   content: Client;
 
   constructor(private clientService: ClientService, public auth: AuthService) { }
 
   ngOnInit() {
-    // this.notes = this.noteService.getData()
     this.clients = this.clientService.getData();
     this.clients.subscribe((x:any) => {
 
@@ -30,7 +28,6 @@ export class ClientsListComponent implements OnInit {
 
   createClient() {
     this.clientService.createClient(this.content);
-    //this.content = '';
   }
 
 }

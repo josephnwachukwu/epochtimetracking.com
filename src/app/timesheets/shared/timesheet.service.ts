@@ -49,21 +49,8 @@ export class TimesheetService {
         return arr.map((snap) => {
           const data = snap.payload.doc.data() as Timesheet;
           return {
-            id: snap.payload.doc.id,
-            title: data.title,
-            status: data.status,
-            projects: data.projects,
-            body: data.body,
-            user: data.user,
-            active: data.active,
-            manager: data.manager,
-            overlapping: data.overlapping,
-            managerEmail: data.managerEmail,
-            userEmail: data.userEmail,
-            weekEnding: data.weekEnding,
-            weekStarting: data.weekStarting,
-            date: data.date,
-            uid: data.uid,
+            id: snap.payload.doc.id, 
+            ...data
           }
         });
       })

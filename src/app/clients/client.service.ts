@@ -13,16 +13,16 @@ import { AuthService } from '../core/auth.service';
 export class ClientService {
 
   clientsCollection: AngularFirestoreCollection<any>;
-  noteDocument:   AngularFirestoreDocument<any>;
+  clientDocument:   AngularFirestoreDocument<any>;
   userData:any;
 
   constructor(private afs: AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth) {
-    this.clientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('id', 'desc').limit(5));
+    this.clientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('clientName', 'desc'));
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         console.log('user is logged in');
         this.userData = res;
-        this.clientsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid))
+        //this.clientsCollection = this.afs.collection('timesheets', (ref) => ref.where('userId', '==', this.userData.uid))
         console.log('this.userData',this.userData);
       } else {
         console.log('user not logged in');
@@ -30,25 +30,30 @@ export class ClientService {
     });
   }
 
-  getData(): Observable<any[]> {
-    // ['added', 'modified', 'removed']
+  getData = (): Observable<Client[]> => {
+    console.log('get client data');
     return this.clientsCollection.snapshotChanges().pipe(
-      map((actions) => {
-        return actions.map((a) => {
-          const data = a.payload.doc.data();
-          return { id: a.payload.doc.id, ...data };
-        });
+      map((arr:any[]) => {
+        return arr.map((snap) => {
+          const data = snap.payload.doc.data() as Client;
+          return {id: snap.payload.doc.id, ...data }
+        })
       })
+
     );
   }
+
 
   getClient(id: string) {
     return this.afs.doc<any>(`clients/${id}`);
   }
 
-  createClient(client: Client) {
-    client.id = this.userData.uid;
+  createClient(client: any) {
+    client.userId = this.userData.uid;
+    client.time = new Date().getTime();
+    console.log(`client`, client)
     return this.clientsCollection.add(Object.assign({}, client));
+
   }
 
   updateClient(id: string, data: Client) {

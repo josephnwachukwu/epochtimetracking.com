@@ -11,6 +11,7 @@
     <button class="delete"></button>
     You have not added an agency yet. You will not be able to send invoices until you add an agency
   </div>
+
   <div class="card" *ngFor="let client of clients | async">
   <div class="card-content">
     <div class="media">
@@ -20,7 +21,7 @@
         </figure>
       </div>
       <div class="media-content">
-        <p class="title is-4">Tarte Cosmetics</p>
+        <p class="title is-4">{{client.clientName}}</p>
         <p class="subtitle is-6">@johnsmith</p>
       </div>
     </div>
@@ -34,6 +35,7 @@
     </div>
   </div>
 </div>
+
 <button (click)="toggleClientModal()" class="button is-info">Add Client</button>
 </div>
 
@@ -47,7 +49,7 @@
       <button class="delete" aria-label="close"  (click)="toggleClientModal()"></button>
     </header>
     <section class="modal-card-body">
-      <client-form></client-form>
+      <client-form (closeModal)="toggleClientModal()"></client-form>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success">Add Client</button>

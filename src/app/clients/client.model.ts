@@ -1,6 +1,7 @@
 export class Client {
   id?: string;
   time: number;
+  userId: string;
   managerId?: string;
   managerName?: string;
   managerEmail?: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Client } from '../client.model'
 import { ClientService } from '../client.service'
 
@@ -8,6 +8,8 @@ import { ClientService } from '../client.service'
   styleUrls: ['./client-form.component.scss']
 })
 export class ClientFormComponent implements OnInit {
+	@Output() closeModal = new EventEmitter<boolean>()
+
 	client = new Client();
   constructor(public clientService: ClientService) { }
 
@@ -17,6 +19,7 @@ export class ClientFormComponent implements OnInit {
 
   createClient = (client: Client) => {
   	this.clientService.createClient(client)
+  	this.closeModal.emit(true);
   }
 
 }
