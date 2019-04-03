@@ -3,14 +3,14 @@
 <div class="field">
   <label class="label">Client Name</label>
   <div class="control">
-    <input class="input" type="text" placeholder="Text input" [(ngModel)]="client.clientName">
+    <input class="input" type="text" name="clientName" placeholder="Text input" [(ngModel)]="client.clientName">
   </div>
 </div>
 
 <div class="field">
   <label class="label">Manager Name</label>
   <div class="control">
-    <input class="input" type="text" placeholder="Text input"  [(ngModel)]="client.managerName">
+    <input class="input" type="text" name="managerName" placeholder="Text input"  [(ngModel)]="client.managerName">
   </div>
 </div>
 
@@ -18,7 +18,13 @@
 <div class="field">
   <label class="label">Manager Email</label>
   <div class="control">
-    <input class="input" type="text" placeholder="Text input"  [(ngModel)]="client.managerEmail">
+    <input class="input" type="text" name="managerEmail" placeholder="Text input"  [(ngModel)]="client.managerEmail">
+  </div>
+</div>
+<div class="field">
+  <label class="label">Manager Email</label>
+  <div class="control">
+    <button (click)="createClient(client)">create client</button>
   </div>
 </div>
 
