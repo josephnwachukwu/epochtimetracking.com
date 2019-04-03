@@ -48,6 +48,7 @@ export const managerInvite = functions.firestore.document('clients/{id}')
 	    <p>If you are joseph's manager click <a href="https://epochtimetracking.com/manager/onboarding?clientID=${clientId}">here</a> to be onboarded as a manager</p>
 	    <p>Thank You</p>` 
 	};
+	
 	if(newValue!.managerEmail !== previousValue!.managerEmail) {
 		console.log('managers email as changed', managerEmail);
 		try {
