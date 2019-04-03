@@ -4,7 +4,7 @@ import { ProjectService } from '../project.service';
 import { ClientService } from '../../clients/client.service'
 
 import { Project } from '../project-model';
-import { Client } from '../../clients/client-model'
+import { Client } from '../../clients/client.model'
 
 import { Observable } from 'rxjs';
 
@@ -26,7 +26,7 @@ export class ProjectsListComponent implements OnInit {
 
   ngOnInit() {
     this.projects = this.projectService.getSnapshot();
-    this.clients = this.clientService.getSnapshot();
+    this.clients = this.clientService.getData();
   }
 
   createProject() {

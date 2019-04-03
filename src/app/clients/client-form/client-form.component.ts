@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from '../client.model'
 
 @Component({
   selector: 'client-form',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-form.component.scss']
 })
 export class ClientFormComponent implements OnInit {
-
+	client = new Client();
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

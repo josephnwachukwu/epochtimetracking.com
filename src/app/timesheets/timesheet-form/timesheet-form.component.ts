@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { Timesheet } from '../shared/timesheet';
 import { Project } from '../../projects/project-model';
-import { Client } from '../../clients/client-model'
+import { Client } from '../../clients/client.model'
 
 import { TimesheetService } from '../shared/timesheet.service';
 import { ProjectService } from '../../projects/project.service';
@@ -44,7 +44,7 @@ export class TimesheetFormComponent implements OnInit {
         }
       )
 
-    this.clients = this.clientService.getSnapshot();
+    this.clients = this.clientService.getData();
     this.clients
       .subscribe(
         (data) => {

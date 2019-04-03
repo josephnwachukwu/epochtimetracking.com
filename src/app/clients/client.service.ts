@@ -1,57 +1,57 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-
-import { Client } from './client-model';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-interface NewNote {
-  content: string;
-  hearts: 0;
-  time: number;
-}
+import { Client } from '../clients/client.model';
+import { AuthService } from '../core/auth.service';
 
 @Injectable()
 export class ClientService {
 
-  clientsCollection: AngularFirestoreCollection<Client>;
-  clientDocument:   AngularFirestoreDocument<Node>;
+  clientsCollection: AngularFirestoreCollection<any>;
+  noteDocument:   AngularFirestoreDocument<any>;
+  userData:any;
 
-  constructor(private afs: AngularFirestore) {
-    this.clientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('time', 'desc'));
+  constructor(private afs: AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth) {
+    this.clientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('id', 'desc').limit(5));
+    this.afAuth.authState.subscribe(res => {
+      if (res && res.uid) {
+        console.log('user is logged in');
+        this.userData = res;
+        this.clientsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid))
+        console.log('this.userData',this.userData);
+      } else {
+        console.log('user not logged in');
+      }
+    });
   }
 
-  getData(): Observable<Client[]> {
-    return this.clientsCollection.valueChanges();
-  }
-
-  getSnapshot(): Observable<Client[]> {
+  getData(): Observable<any[]> {
     // ['added', 'modified', 'removed']
     return this.clientsCollection.snapshotChanges().pipe(
       map((actions) => {
         return actions.map((a) => {
-          const data = a.payload.doc.data() as Client;
-          return { id: a.payload.doc.id, content: data.content, time: data.time };
+          const data = a.payload.doc.data();
+          return { id: a.payload.doc.id, ...data };
         });
       })
-    )
+    );
   }
 
   getClient(id: string) {
-    return this.afs.doc<Client>(`clients/${id}`);
+    return this.afs.doc<any>(`clients/${id}`);
   }
 
-  create(content: string) {
-    const client = {
-      content,
-      time: new Date().getTime(),
-    };
-    return this.clientsCollection.add(client);
+  createClient(client: Client) {
+    client.id = this.userData.uid;
+    return this.clientsCollection.add(Object.assign({}, client));
   }
 
-  updateClient(id: string, data: Partial<Client>) {
+  updateClient(id: string, data: Client) {
     return this.getClient(id).update(data);
   }
 

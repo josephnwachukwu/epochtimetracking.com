@@ -11,7 +11,7 @@
     <button class="delete"></button>
     You have not added an agency yet. You will not be able to send invoices until you add an agency
   </div>
-  <div class="card">
+  <div class="card" *ngFor="let client of clients | async">
   <div class="card-content">
     <div class="media">
       <div class="media-left">

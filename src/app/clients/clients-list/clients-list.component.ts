@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { ClientService } from '../client.service';
 
-import { Client } from '../client-model';
+import { Client } from '../client.model';
 
 import { Observable } from 'rxjs';
+
+import { AuthService } from '../../core/auth.service'
 
 @Component({
   selector: 'clients-list',
@@ -14,18 +16,21 @@ import { Observable } from 'rxjs';
 export class ClientsListComponent implements OnInit {
 
   clients: Observable<Client[]>;
-  content: string;
+  content: Client;
 
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService, public auth: AuthService) { }
 
   ngOnInit() {
     // this.notes = this.noteService.getData()
-    this.clients = this.clientService.getSnapshot();
+    this.clients = this.clientService.getData();
+    this.clients.subscribe((x:any) => {
+
+    });
   }
 
   createClient() {
-    this.clientService.create(this.content);
-    this.content = '';
+    this.clientService.createClient(this.content);
+    //this.content = '';
   }
 
 }

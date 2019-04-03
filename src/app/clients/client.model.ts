@@ -8,4 +8,5 @@ export class Client {
   projects?:string[];
   vacationHours: string;
   sickHours: string;
+  clientName: string;
 }

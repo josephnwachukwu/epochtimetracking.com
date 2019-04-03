@@ -4,7 +4,7 @@
 <input [(ngModel)]="content" placeholder="Add Client" class="input">
 
 
-<button class="button is-success" (click)="createClient()" [disabled]="content?.length < 2 || content?.length > 200">
+<button class="button is-success" (click)="createClient()">
   Add Client
 </button>
 <hr>
