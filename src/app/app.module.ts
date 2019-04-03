@@ -21,8 +21,8 @@ import { TimesheetModule } from './timesheets/shared/timesheet.module';
 import { UiModule } from './ui/shared/ui.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ClientsModule } from './clients/clients.module';
-import { DashboardModule } from './dashboard/dashboard.module'
-
+import { DashboardModule } from './dashboard/dashboard.module';
+//import { ClientFormComponent } from './clients/client-form/client-form.component';
 ///// End FireStarter
 import { ReadmePageComponent } from './readme-page/readme-page.component';
 import { environment } from '../environments/environment';
@@ -30,7 +30,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 //export const firebaseConfig = environment.firebaseConfig;
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { StartDateComponent } from './timesheets/shared/components/start-date/start-date.component'
+import { StartDateComponent } from './timesheets/shared/components/start-date/start-date.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -48,7 +48,8 @@ import { AppConfigService } from './app.config'
 @NgModule({
   declarations: [
     AppComponent,
-    ReadmePageComponent
+    ReadmePageComponent,
+    //ClientFormComponent
   ],
   imports: [
     BrowserModule,

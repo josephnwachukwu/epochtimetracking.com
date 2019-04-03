@@ -8,8 +8,8 @@ import { ClientService } from './client.service';
 
 import { ClientsListComponent } from './clients-list/clients-list.component';
 import { ClientDetailComponent } from './client-detail/client-detail.component';
-
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { ClientFormComponent } from './client-form/client-form.component';
 
 @NgModule({
   imports: [
@@ -21,7 +21,9 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
   declarations: [
     ClientsListComponent,
     ClientDetailComponent,
+    ClientFormComponent,
   ],
   providers: [ClientService],
+  exports: [ClientFormComponent]
 })
 export class ClientsModule { }

@@ -34,4 +34,24 @@
     </div>
   </div>
 </div>
+<button (click)="toggleClientModal()" class="button is-info">Add Client</button>
+</div>
+
+
+
+<div class="modal" [ngClass]="{'is-active': addClientModalActive === true}" #addClient>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add Client Information</p>
+      <button class="delete" aria-label="close"  (click)="toggleClientModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <client-form></client-form>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Add Client</button>
+      <button class="button" (click)="toggleClientModal()">Cancel</button>
+    </footer>
+  </div>
 </div>
