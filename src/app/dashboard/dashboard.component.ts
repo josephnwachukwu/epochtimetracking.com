@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   addClientModalActive:boolean = false;
   constructor(public clientService: ClientService) { 
-  	console.log(this.addClientModalActive)
+
   }
 
   ngOnInit() {

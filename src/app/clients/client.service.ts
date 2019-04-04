@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Observable } from 'rxjs';
@@ -20,18 +20,12 @@ export class ClientService {
     this.clientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('clientName', 'desc'));
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
-        console.log('user is logged in');
         this.userData = res;
-        //this.clientsCollection = this.afs.collection('timesheets', (ref) => ref.where('userId', '==', this.userData.uid))
-        console.log('this.userData',this.userData);
-      } else {
-        console.log('user not logged in');
-      }
+      } 
     });
   }
 
   getData = (): Observable<Client[]> => {
-    console.log('get client data');
     return this.clientsCollection.snapshotChanges().pipe(
       map((arr:any[]) => {
         return arr.map((snap) => {
@@ -51,7 +45,7 @@ export class ClientService {
   createClient(client: any) {
     client.userId = this.userData.uid;
     client.time = new Date().getTime();
-    console.log(`client`, client)
+    //console.log(`client`, client)
     return this.clientsCollection.add(Object.assign({}, client));
 
   }

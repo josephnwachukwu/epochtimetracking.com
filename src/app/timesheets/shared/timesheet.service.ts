@@ -32,13 +32,9 @@ export class TimesheetService {
     this.timesheetsRef = db.list('/timesheets');
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
-        console.log('user is logged in');
         this.userData = res;
         this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid))
-        console.log('this.userData',this.userData);
-      } else {
-        console.log('user not logged in');
-      }
+      } 
     });
   }
 
@@ -68,17 +64,10 @@ export class TimesheetService {
     return this.afs.doc<Timesheet>(`timesheets/${id}`)
   }
 
-  // Create a brand new timesheet
-  //createTimesheet(timesheet: Timesheet): void {
-  //  this.timesheetsRef.push(timesheet);
-  //}
 
   createTimesheet = (timesheet: Timesheet) => {
     timesheet.uid = this.userData.uid;
     return this.timesheetsCollection.add(Object.assign({},timesheet));
-    //this.timesheet = null;
-    //this.timesheet = new Timesheet();
-    //timesheet.date = null;
   }
 
   // Update an exisiting timesheet
@@ -187,28 +176,6 @@ export class TimesheetService {
     }
 
     runReport():void {
-      // let totalHours:number = 0
-      // let projectHours:number
-      // let projectTiming:any = []
-      // let projectName:string
-      // for(let i in this.timesheet) {
-      //   projectName = this.timesheet[i].initiative
-      //   projectHours = 0
-      //   for(let j in this.timesheet[i].days)  {
-      //     totalHours += this.timesheet[i].days[j].time
-      //     projectHours += this.timesheet[i].days[j].time
-      //   }
-      //   projectTiming.push({
-      //     'projectName': projectName,
-      //     'projectHours': projectHours,
-      //     'totalHours': 0,
-      //     'percentage': 0,
-      //   })
-      //   console.log(projectTiming)
-      // }
-      // for(let k in projectTiming) {
-      //   projectTiming[k].totalHours = totalHours
-      //   projectTiming[k].percentage = ((projectTiming[k].projectHours / totalHours) *100).toFixed()
-      // }
+
     }
 }
