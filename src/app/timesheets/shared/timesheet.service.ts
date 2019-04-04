@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router'
 
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+//import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth'
 
@@ -19,39 +20,46 @@ export class TimesheetService {
 
   private basePath = '/timesheets';
 
-  timesheetsRef: AngularFireList<Timesheet>;
-  timesheetRef:  AngularFireObject<Timesheet>;
-  timesheetsCollection: AngularFirestoreCollection<Timesheet>;
+  //timesheetsRef: AngularFireList<Timesheet>;
+  //timesheetRef:  AngularFireObject<Timesheet>;
+  timesheetsCollection: AngularFirestoreCollection<any>;
   timesheetDocument: AngularFirestoreDocument<Node>;
-
+  timesheets: Observable<any[]>;
   timesheet =  new Timesheet();
   events: string[] = [];
   dates:any[] = [];
   userData:any;
-  constructor(private db: AngularFireDatabase, private afs:AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth) {
-    this.timesheetsRef = db.list('/timesheets');
+  constructor( private afs:AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth, public route: ActivatedRoute) {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
+        console.log('hi')
         this.userData = res;
-        this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid))
+        this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid));
+        
+        this.timesheets = this.timesheetsCollection.snapshotChanges().pipe(
+          map((arr:any[]) => {
+            return arr.map((snap) => {
+              const data = snap.payload.doc.data() as Timesheet;
+              return {id: snap.payload.doc.id, ...data }
+            })
+          })
+        );
       } 
     });
   }
 
-  // Return an observable list of Items
-  getItemsList =  (): Observable<Timesheet[]> => {
+  getData = (): Observable<Timesheet[]> => {
+    // map the data from snapshot
+    console.log(this.timesheetsCollection)
     return this.timesheetsCollection.snapshotChanges().pipe(
       map((arr:any[]) => {
         return arr.map((snap) => {
           const data = snap.payload.doc.data() as Timesheet;
-          return {
-            id: snap.payload.doc.id, 
-            ...data
-          }
-        });
+          return {id: snap.payload.doc.id, ...data }
+        })
       })
-    )
-  }
+    );
+  }  
 
   // Return a single observable timesheet
   //getTimesheet(key: string): Observable<Timesheet | null> {
@@ -67,12 +75,14 @@ export class TimesheetService {
 
   createTimesheet = (timesheet: Timesheet) => {
     timesheet.uid = this.userData.uid;
+    timesheet.time =  new Date().getTime();
+
     return this.timesheetsCollection.add(Object.assign({},timesheet));
   }
 
   // Update an exisiting timesheet
   updateTimesheet(key: string, value: any): void {
-    this.timesheetsRef.update(key, value);
+    //this.timesheetsRef.update(key, value);
   }
 
   updateTimesheetStatus = (id: string, data: Partial<Timesheet>) => {
@@ -97,7 +107,7 @@ export class TimesheetService {
 
   // Deletes the entire list of timesheets
   deleteAll(): void {
-    this.timesheetsRef.remove();
+    //this.timesheetsRef.remove();
   }
 
   // Default error handling for all actions

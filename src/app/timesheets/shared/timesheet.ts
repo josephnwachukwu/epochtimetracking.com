@@ -6,17 +6,38 @@ export type status = "approved" | "submitted" | "rejected" | "saved" | "draft"
 export type overlapping = true | false
 
 export class Timesheet {
-  uid:string;
-  id?: string;
+	// User ID Associated with this timesheet
+  	uid:string;
+
+  	// Unique ID
+  	id?: string;
+
+  	// Title of Timesheet
 	title: string;
+
+	// Client ID 
+	clientId: string;
+
+	// Is this an overLapping timesheet where the end of the month is in the middle of the week
+	overlapping:boolean;
+
+	// Status what state the timesheet is in
+	status:string;
+
+	// When it was submitted
+	time: number;
+
+	// Comments associated with the timesheet
 	body: string;
-	user:string;
+
+	// Name of the contractor
+	userName:string;
 	manager:string;
 	managerEmail:string;
 	userEmail:string;
 	date:any;
-	status:string;
-	overlapping:boolean;
+	
+	
 	weekEnding:string;
 	weekStarting:string;
 	active = true;

@@ -44,11 +44,13 @@ import {MatDatepickerModule,
 import { ThemeModule } from './theme/theme.module';
 
 // Services
-import { AppConfigService } from './app.config'
+import { AppConfigService } from './app.config';
+//import { TimesheetDetailModalComponent } from './timesheets/timesheet-detail-modal/timesheet-detail-modal.component'
 @NgModule({
   declarations: [
     AppComponent,
     ReadmePageComponent,
+    //TimesheetDetailModalComponent,
     //ClientFormComponent
   ],
   imports: [

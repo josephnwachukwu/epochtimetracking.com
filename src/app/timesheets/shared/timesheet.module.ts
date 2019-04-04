@@ -12,6 +12,7 @@ import { TimesheetsListComponent } from '../timesheets-list/timesheets-list.comp
 import { TimesheetFormComponent } from '../timesheet-form/timesheet-form.component';
 import { TimesheetDetailComponent } from '../timesheet-detail/timesheet-detail.component';
 import { StartDateComponent } from './components/start-date/start-date.component';
+import { TimesheetDetailModalComponent } from '../timesheet-detail-modal/timesheet-detail-modal.component'
 
 @NgModule({
   imports: [
@@ -26,7 +27,9 @@ import { StartDateComponent } from './components/start-date/start-date.component
     TimesheetFormComponent,
     TimesheetDetailComponent,
     StartDateComponent,
+    TimesheetDetailModalComponent,
   ],
+  exports: [ TimesheetDetailModalComponent ],
   providers: [
     TimesheetService,
   ],

@@ -1,4 +1,117 @@
-<div *ngIf="client | async as client">
-  <h3>{{ client.clientName }}</h3>
-  <span class="button is-small is-danger" (click)='deleteClient(client?.id)'>Delete</span>
+<div class="columns" *ngIf="client | async as client">
+	<div class="column is-3">
+		<div class="box">
+			<nav class="panel">
+			  <a class="panel-block"  [ngClass]="{'is-active': activePanel === 'summary'}" (click)="activePanel = 'summary'">
+			    Overview
+			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'timesheets'}" (click)="activePanel = 'timesheets'">
+			    Timesheets
+			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'projects'}" (click)="activePanel = 'projects'">
+			    Projects
+			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'expenses'}" (click)="activePanel = 'expenses'">
+			    Expenses
+			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'reports'}" (click)="activePanel = 'reports'">
+			    Reports
+			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'invoices'}" (click)="activePanel = 'invoices'">
+			    Invoices
+			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'editClient'}" (click)="activePanel = 'editClient'">
+			    Update Client Info
+			  </a>
+			</nav>
+		</div>
+	</div>
+	<div class="column is-9">
+		<div class="box client-center-container">
+			<h2>{{ client.clientName }}</h2>
+			<hr>
+
+			<!-- Summary Panel -->
+			<div *ngIf="activePanel ==='summary'">
+				<div class="notification is-danger">
+			    You have not added a manager yet. Your timesheets cannot be approved until you add a manager
+			  	</div>
+			  	<div class="notification is-danger">
+			    You manager has not been verified yet. Your timesheets cannot be approved until your manager has been verfied
+			  	</div>
+			  	<hr>
+			</div>
+
+			<!-- Timesheets Panel -->
+			<div *ngIf="activePanel ==='timesheets'">
+				<h3>Timesheets</h3>
+				<div class="column is-12"*ngFor="let timesheet of timesheetService.timesheets | async">
+					<div class="card">
+						  <header class="card-header">
+						    <p class="card-header-title">
+						      {{timesheet.title}}
+						    </p>
+						    <a href="#" class="card-header-icon" aria-label="more options">
+						      <span class="icon">
+						        <i class="fas fa-angle-down" aria-hidden="true"></i>
+						      </span>
+						    </a>
+						  </header>
+						  <div class="card-content">
+						    <div class="content">
+						    	<p><strong>Total Hours - </strong> 40</p>
+						    	<span *ngFor="let project of timesheet.projects"  class="tag is-black is-medium">{{project.client}}</span>
+						    	<p>Status: {{timesheet.status}}</p>
+						      <br>
+						      <time datetime="">{{timesheet.time}}</time>
+						    </div>
+						  </div>
+						  <footer class="card-footer">
+						    <a href="#" class="card-footer-item">View</a>
+						    <a href="#" class="card-footer-item">Edit</a>
+						    <a href="#" class="card-footer-item">Delete</a>
+						  </footer>
+						</div>
+				</div>
+			</div>
+
+			<!-- Projects Panel -->
+			<div *ngIf="activePanel ==='projects'">
+				<h3>Projects</h3>
+				<hr>
+			</div>
+
+			<!-- Expenses Panel -->
+			<div *ngIf="activePanel ==='expenses'">
+				<h3>Expenses</h3>
+				<hr>
+			</div>
+
+			<!-- Reports Panel -->
+			<div *ngIf="activePanel ==='reports'">
+				<h3>Reports</h3>
+				<hr>
+			</div>
+
+			<!-- Invoices Panel -->
+			<div *ngIf="activePanel ==='invoices'">
+				<h3>Invoices</h3>
+				<hr>
+			</div>
+
+			<!-- Edit Client Panel -->
+			<div *ngIf="activePanel ==='editClient'">
+				<h3>Edit Client Information</h3>
+				<hr>
+				<span class="button is-small is-danger" (click)='deleteClient(client?.id)'>Delete</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <timesheet-detail-modal timesheetId="timesheetId"></timesheet-detail-modal>
+  </div>
 </div>

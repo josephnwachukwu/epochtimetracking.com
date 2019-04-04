@@ -28,7 +28,7 @@ export class TimesheetsListComponent implements OnInit {
 
   ngOnInit() {
     //this.timesheets = [];
-    this.timesheets = this.timesheetService.getItemsList();
+    //this.timesheets = this.timesheetService.getItemsList();
     this.timesheets.subscribe((x:any) => {
       this.showSpinner = false;
     });
