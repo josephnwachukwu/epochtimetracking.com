@@ -44,30 +44,125 @@
 
 			<!-- Timesheets Panel -->
 			<div *ngIf="activePanel ==='timesheets'">
-				<h3>Timesheets</h3>
+				<nav class="level">
+					<div class="level-left">
+						<div class="level-item">
+							Timesheets
+						</div>
+						<div class="level-item">
+							<div class="control">
+								<input class="input" type="text" placeholder="Find a timesheet">
+							</div>
+						</div>
+					</div>
+					<div class="level-right">
+						<div class="field">
+					      <p class="control">
+					        <button class="button is-success">+ New Timesheet</button>
+					      </p>
+					    </div>
+					</div>
+				</nav>
 				<div class="column is-12"*ngFor="let timesheet of timesheetService.timesheets | async">
 					<div class="card">
 						  <header class="card-header">
 						    <p class="card-header-title">
 						      {{timesheet.title}}
 						    </p>
-						    <a href="#" class="card-header-icon" aria-label="more options">
-						      <span class="icon">
-						        <i class="fas fa-angle-down" aria-hidden="true"></i>
-						      </span>
-						    </a>
 						  </header>
 						  <div class="card-content">
 						    <div class="content">
-						    	<p><strong>Total Hours - </strong> 40</p>
-						    	<span *ngFor="let project of timesheet.projects"  class="tag is-black is-medium">{{project.client}}</span>
-						    	<p>Status: {{timesheet.status}}</p>
+						    	<h4>Projects</h4>
+						    	<div *ngFor="let project of timesheet.projects">
+
+						    	<div class="field is-grouped is-grouped-multiline">
+						    		<div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag "> <strong>
+									      	{{project.project}}
+									      </strong>
+									    </span>
+									      <span class="tag">{{project.initiative}}</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Mon</span>
+									      <span class="tag is-primary">{{project.week.monday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Tue</span>
+									      <span class="tag is-primary">{{project.week.tuesday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Wed</span>
+									      <span class="tag is-primary">{{project.week.wednesday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Thu</span>
+									      <span class="tag is-primary">{{project.week.thursday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Fri</span>
+									      <span class="tag is-primary">{{project.week.friday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Sat</span>
+									      <span class="tag is-primary">{{project.week.saturday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag">Sun</span>
+									      <span class="tag is-primary">{{project.week.sunday.hours}} hrs</span>
+									    </div>
+									  </div>
+
+									  <div class="control">
+									    <div class="tags has-addons">
+									      <span class="tag is-info">Total</span>
+									      <span class="tag"><strong>{{project.total}} hrs</strong></span>
+									    </div>
+									  </div>
+						    	</div>
+						    	</div>
 						      <br>
-						      <time datetime="">{{timesheet.time}}</time>
+						      <div class="field is-grouped is-grouped-multiline">
+							  <div class="control">
+							    <div class="tags has-addons">
+							      <span class="tag ">Status</span>
+							      <span class="tag is-info">{{timesheet.status}}</span>
+							    </div>
+							  </div>
+
+							  <div class="control">
+							    <div class="tags has-addons">
+							      <span class="tag ">Created:</span>
+							      <span class="tag is-success">{{timesheet.time}}</span>
+							    </div>
+							  </div>
+							</div>
 						    </div>
 						  </div>
 						  <footer class="card-footer">
-						    <a href="#" class="card-footer-item">View</a>
+						  	<a href="#" class="card-footer-item">Submit</a>
 						    <a href="#" class="card-footer-item">Edit</a>
 						    <a href="#" class="card-footer-item">Delete</a>
 						  </footer>
@@ -109,9 +204,9 @@
 	</div>
 </div>
 
-<div class="modal">
+<div class="modal" [ngClass]="{'is-active': timesheetModalActive === true}">
   <div class="modal-background"></div>
   <div class="modal-card">
-    <timesheet-detail-modal timesheetId="timesheetId"></timesheet-detail-modal>
+    <timesheet-detail-modal timesheetId="timesheet"></timesheet-detail-modal>
   </div>
 </div>
