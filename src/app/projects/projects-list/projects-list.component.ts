@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ProjectService } from '../project.service';
 import { ClientService } from '../../clients/client.service'
@@ -14,24 +14,30 @@ import { Observable } from 'rxjs';
   styleUrls: ['./projects-list.component.scss'],
 })
 export class ProjectsListComponent implements OnInit {
+  @Input() clientId:string;
 
+  addProjectActive: boolean = false;
   projects: Observable<Project[]>;
   clients: Observable<Client[]>;
-  
-  name: string;
-  client:string;
+  proj: any;
 
-
-  constructor(private projectService: ProjectService, private clientService: ClientService) { }
+  constructor(private projectService: ProjectService, private clientService: ClientService) {
+  }
 
   ngOnInit() {
-    this.projects = this.projectService.getSnapshot();
+    this.projects = this.projectService.getSnapshot(this.clientId);
     this.clients = this.clientService.getData();
   }
 
   createProject() {
-    this.projectService.create(this.name, this.client);
-    this.name = '';
+    this.proj.clientId = this.clientId;
+    this.projectService.createProject(this.proj)
+    this.proj = {};
+    this.addProjectActive = false;
   }
 
+  newProject  = () => {
+    this.proj = new Project();
+    this.addProjectActive = true;
+  }
 }

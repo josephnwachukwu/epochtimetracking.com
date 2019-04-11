@@ -18,6 +18,6 @@ export class StartDateComponent implements OnInit {
   ngOnInit() {
   }
   closeDialog(): void {
-    this.dialogRef.close()
+    this.dialogRef.close(this.date)
   }
 }

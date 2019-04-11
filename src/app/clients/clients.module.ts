@@ -12,7 +12,7 @@ import { ClientRoutingModule } from './client-routing.module'
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { ClientFormComponent } from './client-form/client-form.component';
 import { TimesheetModule } from '../timesheets/shared/timesheet.module';
-
+import { ProjectsModule } from '../projects/projects.module';
 
 @NgModule({
   imports: [
@@ -21,6 +21,7 @@ import { TimesheetModule } from '../timesheets/shared/timesheet.module';
     SharedModule,
     ClientRoutingModule,
     TimesheetModule,
+    ProjectsModule,
     AngularFirestoreModule.enablePersistence(),
   ],
   declarations: [

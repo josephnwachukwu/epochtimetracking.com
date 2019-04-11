@@ -27,12 +27,12 @@ export class ClientService {
 
   getData = (): Observable<Client[]> => {
     return this.clientsCollection.snapshotChanges().pipe(
-      map((arr:any[]) => {
-        return arr.map((snap) => {
+      map(actions => actions.map((snap) => {
           const data = snap.payload.doc.data() as Client;
-          return {id: snap.payload.doc.id, ...data }
+          const id = snap.payload.doc.id;
+          return { id, ...data };
         })
-      })
+      )
 
     );
   }

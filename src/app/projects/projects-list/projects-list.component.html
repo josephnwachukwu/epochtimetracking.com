@@ -1,20 +1,39 @@
-<h1>Projects</h1>
-<p>List of Initiatives</p>
-
-<input [(ngModel)]="name" placeholder="Project Name ..." class="input">
-<!-- <input [(ngModel)]="client" placeholder="Client Name ..." class="input"> -->
-<div class="control">
-  <div class="select">
-    <select [(ngModel)]="client">
-    	<option *ngFor="let client of clients | async" [value]="client.content">
-	      {{ client.content }}
-	    </option>
-    </select>
-  </div>
+<div class="level">
+	<div class="level-left">
+		<div class="level-item">
+			<h4 class="title is-4">Projects</h4>
+		</div>
+	</div>
+	<div class="level-right">
+		<button [disabled]="addProjectActive" class="button is-success" (click)="newProject();">+ New Project</button>
+		<button *ngIf="addProjectActive" class="button is-danger" (click)="addProjectActive = false; proj = {}">Cancel</button>
+	</div>
 </div>
-<button class="button is-success" (click)="createProject()" [disabled]="name?.length < 5 || name?.length > 200">
-  Add Project
-</button>
+
+<div *ngIf="proj && addProjectActive" class="column is-6">
+	<div class="field">
+	  <label class="label">Name</label>
+	  <div class="control">
+	    <input [(ngModel)]="proj.name" placeholder="Project Name ..." class="input">
+	  </div>
+	  <p class="help">Please Enter a name</p>
+	</div>
+	
+	<div class="field">
+	  <label class="label">Description</label>
+	  <div class="control">
+	    <textarea class="textarea" [(ngModel)]="proj.description"></textarea>
+	  </div>
+	</div>
+	
+	<div class="control">
+	  <button class="button is-success" (click)="createProject()" [disabled]="proj.name?.length < 5 || proj.name?.length > 200">
+	  Add Project
+	</button>
+	</div>
+	
+</div>
+
 <hr>
 <div *ngFor="let project of projects | async">
   <project-detail [project]="project"></project-detail>

@@ -22,6 +22,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     ProjectsListComponent,
     ProjectDetailComponent,
   ],
+  exports: [ProjectsListComponent, ProjectDetailComponent],
   providers: [ProjectService],
 })
 export class ProjectsModule { }

@@ -28,9 +28,8 @@
 	</div>
 	<div class="column is-9">
 		<div class="box client-center-container">
-			<h2>{{ client.clientName }}</h2>
+			<h3 class="title is-3">{{ client.clientName }}</h3>
 			<hr>
-
 			<!-- Summary Panel -->
 			<div *ngIf="activePanel ==='summary'">
 				<div class="notification is-danger">
@@ -44,10 +43,10 @@
 
 			<!-- Timesheets Panel -->
 			<div *ngIf="activePanel ==='timesheets'">
-				<nav class="level">
+				<!-- <nav class="level">
 					<div class="level-left">
 						<div class="level-item">
-							Timesheets
+							{{timesheetService.timesheets.length}} Timesheets
 						</div>
 						<div class="level-item">
 							<div class="control">
@@ -58,11 +57,12 @@
 					<div class="level-right">
 						<div class="field">
 					      <p class="control">
-					        <button class="button is-success">+ New Timesheet</button>
+					        <button class="button is-success" (click)="openDialog()">+ New Timesheet</button>
 					      </p>
 					    </div>
 					</div>
-				</nav>
+				</nav> -->
+				<timesheet-form [clientId]="clientId"></timesheet-form>
 				<div class="column is-12"*ngFor="let timesheet of timesheetService.timesheets | async">
 					<div class="card">
 						  <header class="card-header">
@@ -172,8 +172,7 @@
 
 			<!-- Projects Panel -->
 			<div *ngIf="activePanel ==='projects'">
-				<h3>Projects</h3>
-				<hr>
+				<projects-list [clientId]="clientId"></projects-list>
 			</div>
 
 			<!-- Expenses Panel -->

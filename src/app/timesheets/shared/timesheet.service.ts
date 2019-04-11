@@ -130,7 +130,7 @@ export class TimesheetService {
     this.timesheet.weekStarting = this.timesheet.date;
     this.timesheet.weekEnding = titleDate.toDateString()
     Object.keys(this.timesheet.projects[0].week).map((key, index) => {
-      console.log('key ', key)
+      //console.log('key ', key)
       let tempDate = new Date(selectedDate);
       tempDate.setDate(tempDate.getDate() + index)
       this.timesheet.projects[0].week[key].day = tempDate.toDateString()

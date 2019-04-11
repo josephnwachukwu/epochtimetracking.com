@@ -29,7 +29,7 @@ import { TimesheetDetailModalComponent } from '../timesheet-detail-modal/timeshe
     StartDateComponent,
     TimesheetDetailModalComponent,
   ],
-  exports: [ TimesheetDetailModalComponent ],
+  exports: [ TimesheetDetailModalComponent, TimesheetFormComponent, TimesheetDetailComponent ],
   providers: [
     TimesheetService,
   ],

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, AfterContentInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 
+
 // Firebase
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
@@ -11,10 +12,13 @@ import { map } from 'rxjs/operators';
 // Services
 import { ClientService } from '../client.service';
 import { TimesheetService } from '../../timesheets/shared/timesheet.service';
+import { ProjectService } from '../../projects/project.service';
 
 import { TimesheetDetailModalComponent } from '../../timesheets/timesheet-detail-modal/timesheet-detail-modal.component'
 // Models
 import { Client } from '../client.model';
+
+
 
 @Component({
   selector: 'client-detail',
@@ -28,22 +32,23 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
   activePanel: string;
   private clientDocument: AngularFirestoreDocument<Client>;
   client: Observable<Client>;
-
+  clientId: string;
   // Lists
   timesheets: Observable<any[]>;
   projects: Observable<any[]>;
   expenses: Observable<any[]>;
   invoices: Observable<any[]>;
   reports: Observable<any[]>;
+  tasks: Observable<any[]>;
 
   timesheetModalActive: boolean = false;
-  constructor(private clientService: ClientService, private route: ActivatedRoute, private afs: AngularFirestore, public timesheetService: TimesheetService) { 
+  constructor(private clientService: ClientService, private route: ActivatedRoute, private afs: AngularFirestore, public timesheetService: TimesheetService ) { 
   	
   }
 
   ngOnInit() {
-  	var clientId = this.route.snapshot.paramMap.get("id");
-  	this.clientDocument = this.afs.doc<Client>('clients/' + clientId)
+  	this.clientId = this.route.snapshot.paramMap.get("id");
+  	this.clientDocument = this.afs.doc<Client>('clients/' + this.clientId)
   	this.client = this.clientDocument.valueChanges();
   	this.activePanel = 'summary';
 
@@ -65,6 +70,10 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
 
   getClient(id: string) {
     return this.afs.doc<Client>(`clients/${id}`);
+  }
+
+  getTimesheets() {
+
   }
 
   toggleModal = () => {

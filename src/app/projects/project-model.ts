@@ -1,6 +1,10 @@
-export interface Project {
-  name: string;
-  client?:string;
-  id?: string;
-  time: number;
+export class Project {
+  name?: string;
+  clientName?:string;
+  clientId?:string;
+  //id?: string;
+  time?: number;
+  constructor() {
+
+  }
 }

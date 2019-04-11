@@ -1,8 +1,20 @@
-<div class="card">
+
+<nav class="level">
+	<div class="level-left">
+		<div class="level-item">
+			<h4 class="title is-4"> Timesheets</h4>
+		</div>
+	</div>
+	<div class="level-right">
+		<div class="level-item">
+			<button (click)="openDialog()" class="button is-success">+ New Timesheet</button>
+		</div>
+	</div>
+</nav>
+<div class="card" *ngIf="timesheet">
   <header class="card-header">
     <p class="card-header-title">
       <label class="label">Name: </label>
-
 <input placeholder="Item Title" class="input"
 [(ngModel)]="timesheet.title"
 required minlength="2" maxlength="50"
@@ -10,17 +22,320 @@ required minlength="2" maxlength="50"
     </p>
   </header>
   <div class="card-content">
-    <div class="content">
-      <div class="columns" *ngFor="let project of timesheet.projects">
+    <div class="content timesheet-content">
+    	<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+    		<thead>
+    			<tr>
+    				<th>
+    					Projects
+    				</th>
+    				<th>
+    					Tasks
+    				</th>
+    				<th>
+    					Mon
+    				</th>
+    				<th>
+    					Tue
+    				</th>
+    				<th>
+    					Wed
+    				</th>
+    				<th>
+    					Thu
+    				</th>
+    				<th>
+    					Fri
+    				</th>
+    				<th>
+    					Sat
+    				</th>
+    				<th>
+    					Sun
+    				</th>
+    				<th>
+    					Total
+    				</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr *ngFor="let project of timesheet.projects">
+    				<td width="21%">
+    					<div class="field">
+    						<div class="control">
+    							<div class="select is-fullwidth">
+    								<select [(ngModel)]="project.initiative" name="project" (ngModelChange)="setProject($event)">
+    									<option [selected]="true">Select Initiative</option>
+						    			<option *ngFor="let proj of projectsList" [ngValue]="proj" >
+					      				{{ proj.name }}
+					    				</option>
+    								</select>
+    							</div>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="15%">
+    					<div class="field">
+    						<div class="control">
+    							<div class="select is-fullwidth">
+    								<select [(ngModel)]="project.task" name="task" (ngModelChange)="setTask($event)">
+    									<option selected>Select task</option>
+    								</select>
+    							</div>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									[(ngModel)]="project.week.monday.hours"
+									class="input is-fullwidth"
+									type='text'
+									placeholder="0"
+									minlength="1"
+									maxlength="2"
+									min="0"
+						  			max="24"
+									required
+									hoursMask
+						      		numbersOnly
+									(change)="calculateHours(project)"
+								>
+    						</div>
+    					</div>
+    				</td>
+    				<td width="8%">
+    					<div class="field">
+    						<div class="control">
+    							<input
+									class="input"
+									type='text'
+									[disabled]="true"
+									[(ngModel)]="project.total"
+								>
+    						</div>
+    					</div>
+    				</td>
+    			</tr>
+    			<tr>
+    				<td colspan="2">
+    					<button class="button is-text"
+	(click)='addProject()'>+ Project</button>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+					<td>
+						<div class="field">
+    						<div class="control">
+    							<input
+    								[disabled]="true"
+									class="input is-fullwidth"
+								>
+    						</div>
+    					</div>
+					</td>
+    			</tr>
+    		</tbody>
+    	</table>
+      <!-- <div class="columns" *ngFor="let project of timesheet.projects">
 
 			<div class="column is-2">
 				<div class="field">
 					<label class="label">Project / Initiative</label>
 				  <div class="control">
-				    <div class="select is-primary">
-				      <select [(ngModel)]="project.initiative">
-						    <option selected>Select Initiative</option>
-						    <option *ngFor="let proj of projectsList" [value]="proj.name">
+				    <div class="select">
+				      <select [(ngModel)]="project.initiative" name="project" (ngModelChange)="setProject($event)">
+						    <option [selected]="true">Select Initiative</option>
+						    <option *ngFor="let proj of projectsList" [ngValue]="proj" >
 					      {{ proj.name }}
 					    </option>
 						  </select>
@@ -31,14 +346,11 @@ required minlength="2" maxlength="50"
 
 			<div class="column is-2">
 				<div class="field">
-					<label class="label">Client</label>
+					<label class="label">Task</label>
 				  <div class="control">
-				    <div class="select is-primary">
+				    <div class="select">
 				      <select [(ngModel)]="project.client">
-					    <option selected>Select Client</option>
-					    <option *ngFor="let client of clientsList" [value]="client.content">
-					      {{ client.content }}
-					    </option>
+					    <option selected>Select task</option>
 					  </select>
 				    </div>
 				  </div>
@@ -230,13 +542,13 @@ required minlength="2" maxlength="50"
 				</div>
 			</div>
 
-      </div>
-      <div class="level">
+      </div> -->
+<!--       <div class="level">
       	<div class="level-left">
       		<button class="button is-info"
 	(click)='addProject()'>+ Add Another Project</button>
       	</div>
-      </div>
+      </div> -->
     </div>
   </div>
   <footer class="card-footer">
@@ -245,25 +557,6 @@ required minlength="2" maxlength="50"
     <a href="#" class="card-footer-item">Cancel</a>
   </footer>
 </div>
-
-<!--  -->
-
-
-<div *ngIf="title.dirty">
-  <span *ngIf='title.errors; then errors else valid'>template renders here...</span>
-</div>
-
-<button class="button is-default"
-	(click)='addProject()'>Add Another Project</button>
-
-<button class="button is-primary"
-	(click)='createTimesheet()'
-	[disabled]="!title.valid">Create</button>
-
-<ng-template #valid>
-  <p class="help is-success">looks good!</p>
-</ng-template>
-
-<ng-template #errors>
-  <p class="help is-danger">form contains errors!</p>
-</ng-template>
+<hr>
+<br>
+<br>
