@@ -12,7 +12,10 @@ import { TimesheetsListComponent } from '../timesheets-list/timesheets-list.comp
 import { TimesheetFormComponent } from '../timesheet-form/timesheet-form.component';
 import { TimesheetDetailComponent } from '../timesheet-detail/timesheet-detail.component';
 import { StartDateComponent } from './components/start-date/start-date.component';
-import { TimesheetDetailModalComponent } from '../timesheet-detail-modal/timesheet-detail-modal.component'
+import { TimesheetDetailModalComponent } from '../timesheet-detail-modal/timesheet-detail-modal.component';
+import { TimesheetEditComponent } from '../timesheet-edit/timesheet-edit.component';
+import { Timesheet } from './timesheet.model';
+import {NgxMaskModule} from 'ngx-mask'
 
 @NgModule({
   imports: [
@@ -21,6 +24,7 @@ import { TimesheetDetailModalComponent } from '../timesheet-detail-modal/timeshe
     ReactiveFormsModule,
     FormsModule,
     AngularFireDatabaseModule,
+    NgxMaskModule.forRoot(),
   ],
   declarations: [
     TimesheetsListComponent,
@@ -28,8 +32,9 @@ import { TimesheetDetailModalComponent } from '../timesheet-detail-modal/timeshe
     TimesheetDetailComponent,
     StartDateComponent,
     TimesheetDetailModalComponent,
+    TimesheetEditComponent
   ],
-  exports: [ TimesheetDetailModalComponent, TimesheetFormComponent, TimesheetDetailComponent ],
+  exports: [ TimesheetDetailModalComponent, TimesheetFormComponent, TimesheetDetailComponent, TimesheetEditComponent ],
   providers: [
     TimesheetService,
   ],

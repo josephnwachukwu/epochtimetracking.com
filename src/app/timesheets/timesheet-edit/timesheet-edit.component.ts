@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
-import { Timesheet } from '../shared/timesheet.model'; 
+import { Timesheet } from '../shared/timesheet.model';
 import { Project } from '../../projects/project-model';
 import { Client } from '../../clients/client.model'
 
@@ -20,22 +20,20 @@ import { AuthService } from '../../core/auth.service'
 import { StartDateComponent } from '../../timesheets/shared/components/start-date/start-date.component'
 
 @Component({
-  selector: 'timesheet-form',
-  templateUrl: './timesheet-form.component.html',
-  styleUrls: ['./timesheet-form.component.scss'],
+  selector: 'timesheet-edit',
+  templateUrl: './timesheet-edit.component.html',
+  styleUrls: ['./timesheet-edit.component.scss'],
 })
 
-export class TimesheetFormComponent implements OnInit {
+export class TimesheetEditComponent implements OnInit {
 
   // Client ID for reference
   @Input() clientId: string;
+  @Input() timesheet;
 
   // Projects for select box
   projectsList: any[];
-
-  // Timesheet Initialier
-  timesheet: Timesheet;
-
+  //plist: Observable<any>;
   // Flag to show timesheet
   newActive: boolean = false;
 
@@ -72,17 +70,20 @@ export class TimesheetFormComponent implements OnInit {
 
 
   constructor(public timesheetSvc: TimesheetService, private projectService: ProjectService, private clientService: ClientService, private authService: AuthService, public dialog: MatDialog) {
+
   }
   ngOnInit() {
     this.projectService.getSnapshot(this.clientId)
     .subscribe(data => {
       this.projectsList = data;
     })
+
+    //this.timesheet = this.timesheetSvc.getTimesheet(this.timesheet.id)
   }
 
   // Create Timesheet
   createTimesheet() {
-    this.timesheet.clientId = this.clientId;
+    //this.timesheet.clientId = this.clientId;
     this.timesheetSvc.createTimesheet(this.timesheet);
     this.newActive = false;
   }
@@ -130,7 +131,7 @@ export class TimesheetFormComponent implements OnInit {
       this.maxHoursExceeded = false;
       this.errors[key].maxHoursExceeded = false;
     }
-    console.log('te', this.errors)
+    //console.log('te', this.errors)
     return sum
   }
 
@@ -139,6 +140,21 @@ export class TimesheetFormComponent implements OnInit {
     let hours = ('0' + Math.floor(num)).slice(-2);
     let mins = ('0' + ((num % 1) * 60)).slice(-2);
     return `${hours}:${mins}:00`;
+  }
+
+  // Delete Project
+  deleteProject = (timesheet, index) => {
+    timesheet.projects.splice(index, 1)
+  }
+
+  // Update Timesheet
+  update = (id, timesheet) => {
+    this.timesheetSvc.updateTimesheet(id, timesheet)
+  }
+
+  // TODO: keep temp object and restore 
+  cancelUpdate = (timesheet) => {
+    timesheet.readOnly  = true;
   }
 
   totalSum = (timesheet) => {

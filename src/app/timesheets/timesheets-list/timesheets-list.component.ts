@@ -3,11 +3,11 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import { TimesheetService } from '../shared/timesheet.service';
 
-import { Timesheet } from '../shared/timesheet';
+import { Timesheet } from '../shared/timesheet.model';
 
 import { Observable } from 'rxjs';
 
-import { StartDateComponent } from '../shared/components/start-date/start-date.component'
+//import { StartDateComponent } from '../shared/components/start-date/start-date.component'
 
 import { AuthService } from '../../core/auth.service'
 
@@ -17,18 +17,15 @@ import { AuthService } from '../../core/auth.service'
   styleUrls: ['./timesheets-list.component.scss'],
 })
 export class TimesheetsListComponent implements OnInit {
-  //timesheets = null;
   timesheets:  Observable<Timesheet[]>;
   showSpinner = true;
 
   constructor(public timesheetService: TimesheetService, public dialog: MatDialog, public authService: AuthService) {
-    // this.timesheets = this.timesheetService.getItemsList();
-    // console.log('au', authService.user)
+
   }
 
   ngOnInit() {
-    //this.timesheets = [];
-    //this.timesheets = this.timesheetService.getItemsList();
+
     this.timesheets.subscribe((x:any) => {
       this.showSpinner = false;
     });
@@ -38,14 +35,18 @@ export class TimesheetsListComponent implements OnInit {
     this.timesheetService.deleteAll();
   }
 
-  openDialog(): void {
-    let dialogRef = this.dialog.open(StartDateComponent, {
-      width: '250px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      //console.log('The dialog was closed');
-      //this.animal = result;
-    });
+  // delete timesheet
+  delete = (id) => {
+    this.timesheetService.deleteTimesheet(id)
   }
+
+  // openDialog(): void {
+  //   let dialogRef = this.dialog.open(StartDateComponent, {
+  //     width: '250px'
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+
+  //   });
+  // }
 }

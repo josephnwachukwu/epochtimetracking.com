@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth'
 
-import { Timesheet } from './timesheet';
+import { Timesheet } from './timesheet.model';
 import { WorkWeek } from './workweek.model'
 
 import { Observable } from 'rxjs';
@@ -72,21 +72,25 @@ export class TimesheetService {
     return this.afs.doc<Timesheet>(`timesheets/${id}`)
   }
 
+  updateTimesheet = (id: string, timesheet: Timesheet) => {
+    timesheet.readOnly = true;
+    return this.afs.doc<Timesheet>(`timesheets/${id}`).update(timesheet);
+  }
 
   createTimesheet = (timesheet: Timesheet) => {
     timesheet.uid = this.userData.uid;
     timesheet.time =  new Date().getTime();
-
+    timesheet.readOnly = true;
     return this.timesheetsCollection.add(Object.assign({},timesheet));
   }
 
   // Update an exisiting timesheet
-  updateTimesheet(key: string, value: any): void {
-    //this.timesheetsRef.update(key, value);
-  }
+  // updateTimesheet(key: string, value: any): void {
+  //   this.timesheetsRef.update(key, value);
+  // }
 
   updateTimesheetStatus = (id: string, data: Partial<Timesheet>) => {
-    console.log('data',data)
+    //console.log('data',data)
     data['body'] = 'something';
     data['manager'] = "joseph nwachukwu";
     data['managerEmail'] = 'josephnwachukwu@gmail.com';
@@ -97,7 +101,10 @@ export class TimesheetService {
     return this.getTimesheet(id).update(data)
   }
 
-
+  submitTimesheet = (timesheet, id) => {
+    timesheet.status = 'submitted';
+    return this.getTimesheet(id).update(timesheet)
+  }
 
   // Deletes a single timesheet
   deleteTimesheet(id = <string>'') {
@@ -119,6 +126,7 @@ export class TimesheetService {
     let day = date.getDay()
     return day === 1;
   }
+
 
   setStartDate(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);

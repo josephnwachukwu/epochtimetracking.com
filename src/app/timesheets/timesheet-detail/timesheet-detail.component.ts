@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TimesheetService } from '../shared/timesheet.service';
-import { Timesheet } from '../shared/timesheet';
+import { Timesheet } from '../shared/timesheet.model';
 
 @Component({
   selector: 'timesheet-detail',

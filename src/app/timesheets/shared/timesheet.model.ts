@@ -37,6 +37,7 @@ export class Timesheet {
 	userEmail:string;
 	date:any;
 	
+	readOnly:boolean;
 	
 	weekEnding:string;
 	weekStarting:string;

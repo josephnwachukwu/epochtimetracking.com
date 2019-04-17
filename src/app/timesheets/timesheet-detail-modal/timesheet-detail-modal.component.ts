@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
-import { Timesheet } from '../shared/timesheet';
+import { Timesheet } from '../shared/timesheet.model';
 
 @Component({
   selector: 'timesheet-detail-modal',

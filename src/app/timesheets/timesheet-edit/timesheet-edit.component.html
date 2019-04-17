@@ -1,17 +1,4 @@
-
-<nav class="level">
-	<div class="level-left">
-		<div class="level-item">
-			<h4 class="title is-4"> Timesheets</h4>
-		</div>
-	</div>
-	<div class="level-right">
-		<div class="level-item">
-			<button (click)="openDialog()" class="button is-success">+ New Timesheet</button>
-		</div>
-	</div>
-</nav>
-<div class="card" *ngIf="timesheet && newActive">
+<div class="card">
   <header class="card-header">
     <p class="card-header-title">
       <label class="label">Name: </label>
@@ -27,7 +14,6 @@ required minlength="2" maxlength="50"
     	<div class="notification is-danger" *ngIf="maxHoursExceeded">
 		  Error: You cannot have more than 24 hours of work each day. Please Adjust your hours.
 		</div>
-
     	<table class="table is-bordered is-striped is-hoverable is-fullwidth">
     		<thead>
     			<tr>
@@ -98,19 +84,34 @@ required minlength="2" maxlength="50"
     			</tr>
     		</tfoot>
     		<tbody>
-    			<tr *ngFor="let project of timesheet.projects">
+    			<tr *ngFor="let project of timesheet.projects; let i = index">
     				<td width="21%">
     					<div class="field">
-    						<div class="control">
+    						<div class="control"  *ngIf="!project.initiative?.id">
     							<div class="select is-fullwidth">
+    								<a class="delete" (click)="deleteProject(timesheet, i)"></a>
     								<select [(ngModel)]="project.initiative" name="project" (ngModelChange)="setProject($event)">
-    									<option [selected]="true">Select Initiative</option>
-						    			<option *ngFor="let proj of projectsList" [ngValue]="proj" >
+						    			<option 
+						    				*ngFor="let proj of projectsList" 
+						    				[selected]="project.initiative?.id == proj.id" 
+						    				[ngValue]="proj">
 					      				{{ proj.name }}
 					    				</option>
     								</select>
+
     							</div>
+
+    							
     						</div>
+    						<div class="control"  *ngIf="project.initiative?.id">
+    							<a class="delete" (click)="deleteProject(timesheet, i)"></a>
+								<input
+    								class="input is-fullwidth"
+									[disabled]="project.initiative.id"
+									[attr.readOnly]="project.initiative.id"
+									[(ngModel)]="project.initiative.name"
+								>
+							</div>
     					</div>
     				</td>
     				<td width="15%">
@@ -370,8 +371,8 @@ required minlength="2" maxlength="50"
     <hr>
     <div class="columns">
   		<div class="column is-auto">
-  			<button class="button is-info" (click)='createTimesheet()'> Save</button> &nbsp; &nbsp;
-  			<button class="button is-danger" (click)='cancel()'> Cancel</button>
+  			<button class="button is-info" (click)='update(timesheet.id, timesheet)'> Update</button> &nbsp; &nbsp;
+  			<button class="button is-danger" (click)='cancelUpdate(timesheet)'> Cancel</button>
   		</div>
   	</div>
   </div>
