@@ -1,5 +1,5 @@
 <div class="columns" *ngIf="client | async as client">
-	<div class="column is-3">
+	<div class="column is-2">
 		<div class="box">
 			<nav class="panel">
 			  <a class="panel-block"  [ngClass]="{'is-active': activePanel === 'summary'}" (click)="activePanel = 'summary'">
@@ -18,7 +18,7 @@
 			    Reports
 			  </a>
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'invoices'}" (click)="activePanel = 'invoices'">
-			    Invoices
+			    <i class="fa fa-file-invoice-dollar"></i> &nbsp; &nbsp; Invoices
 			  </a>
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'editClient'}" (click)="activePanel = 'editClient'">
 			    Update Client Info
@@ -26,43 +26,27 @@
 			</nav>
 		</div>
 	</div>
-	<div class="column is-9">
+	<div class="column is-10">
 		<div class="box client-center-container">
-			<h3 class="title is-3">{{ client.clientName }}</h3>
+			
+			<h3 class="title is-3"><canvas iconGenerator txt="{{client.clientName}}"></canvas> &nbsp; {{ client.clientName }}</h3>
 			<hr>
 			<!-- Summary Panel -->
 			<div *ngIf="activePanel ==='summary'">
-				<div class="notification is-danger">
+				<div class="notification is-warning" *ngIf="!client.managerName && !client.managerEmail">
 			    You have not added a manager yet. Your timesheets cannot be approved until you add a manager
 			  	</div>
-			  	<div class="notification is-danger">
-			    You manager has not been verified yet. Your timesheets cannot be approved until your manager has been verfied
+			  	<div class="notification is-warning" *ngIf="!client.managerVerified">
+			    <i class="fa fa-exclamation-triangle"></i> Your manager has not been verified yet. Your timesheets cannot be approved until your manager has been verfied
 			  	</div>
 			  	<hr>
 			</div>
 
 			<!-- Timesheets Panel -->
 			<div *ngIf="activePanel ==='timesheets'">
-				<!-- <nav class="level">
-					<div class="level-left">
-						<div class="level-item">
-							{{timesheetService.timesheets.length}} Timesheets
-						</div>
-						<div class="level-item">
-							<div class="control">
-								<input class="input" type="text" placeholder="Find a timesheet">
-							</div>
-						</div>
-					</div>
-					<div class="level-right">
-						<div class="field">
-					      <p class="control">
-					        <button class="button is-success" (click)="openDialog()">+ New Timesheet</button>
-					      </p>
-					    </div>
-					</div>
-				</nav> -->
+
 				<timesheet-form [clientId]="clientId"></timesheet-form>
+				
 				<div class="column is-12"*ngFor="let timesheet of timesheetService.timesheets | async">
 					<div class="card">
 						  <header class="card-header">
@@ -71,100 +55,233 @@
 						    </p>
 						  </header>
 						  <div class="card-content">
-						    <div class="content">
-						    	<h4>Projects</h4>
-						    	<div *ngFor="let project of timesheet.projects">
+						  	<div class="content timesheet-content">
 
-						    	<div class="field is-grouped is-grouped-multiline">
-						    		<div class="control">
+								<timesheet-edit *ngIf='!timesheet.readOnly' [timesheet]="timesheet" [clientId]="clientId"></timesheet-edit>
+
+								
+						  		<div *ngIf="timesheet.readOnly">
+
+						  			<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+						    		<thead>
+						    			<tr>
+						    				<th>
+						    					Projects
+						    				</th>
+						    				<th>
+						    					Tasks
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.monday.day}}
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.tuesday.day}}
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.wednesday.day}}
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.thursday.day}}
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.friday.day}}
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.saturday.day}}
+						    				</th>
+						    				<th>
+						    					{{timesheet.projects[0].week.sunday.day}}
+						    				</th>
+						    				<th>
+						    					Total
+						    				</th>
+						    			</tr>
+						    		</thead>
+						    		<tfoot *ngIf="false">
+						    			<tr>
+						    				<th colspan="2">
+						    					Total: <strong> {{convertTime(totalSum(timesheet))}}</strong>
+						    				</th>
+						    				<!-- <th>
+						    					
+						    				</th> -->
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'monday') <= 0}">{{convertTime(sumEachDay(timesheet, 'monday'))}}</span>
+						    				</th>
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'tuesday') <= 0}">{{convertTime(sumEachDay(timesheet, 'tuesday'))}}</span>
+						    				</th>
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'wednesday') <= 0}">{{convertTime(sumEachDay(timesheet, 'wednesday'))}}</span>
+						    				</th>
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'thursday') <= 0}">{{convertTime(sumEachDay(timesheet, 'thursday'))}}</span>
+						    				</th>
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'friday') <= 0}">{{convertTime(sumEachDay(timesheet, 'friday'))}}</span>
+						    				</th>
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'saturday') <= 0}">{{convertTime(sumEachDay(timesheet, 'saturday'))}}</span>
+						    				</th>
+						    				<th>
+						    					<span [ngClass]="{'dormant': sumEachDay(timesheet, 'sunday') <= 0}">{{convertTime(sumEachDay(timesheet, 'sunday'))}}</span>
+						    				</th>
+						    				<th>
+						    					
+						    				</th>
+						    			</tr>
+						    		</tfoot>
+						    		<tbody>
+						    			<tr *ngFor="let project of timesheet.projects">
+						    				<td width="21%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input 
+						    							[(ngModel)]="project.initiative.name"
+						    							class="input is-fullwidth"
+						    							disabled
+						    							readonly>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="15%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input 
+						    								class="input is-fullwidth"
+						    								type="text"
+						    								readonly 
+						    								disabled
+						    								[(ngModel)]="project.task"
+						    							>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.monday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.tuesday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.wednesday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.thursday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.friday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.saturday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															[(ngModel)]="project.week.sunday.hours"
+															class="input is-fullwidth"
+															type='text'
+															disabled
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    				<td width="8%">
+						    					<div class="field">
+						    						<div class="control">
+						    							<input
+															class="input"
+															type='text'
+															disabled
+															[(ngModel)]="project.total"
+														>
+						    						</div>
+						    					</div>
+						    				</td>
+						    			</tr>
+						    		</tbody>
+						    	</table>
+						    	 <div class="content" style="padding: 0px">
+								      <br>
+								      <div class="field is-grouped is-grouped-multiline">
+									  <div class="control">
 									    <div class="tags has-addons">
-									      <span class="tag "> <strong>
-									      	{{project.project}}
-									      </strong>
-									    </span>
-									      <span class="tag">{{project.initiative}}</span>
+									      <span class="tag ">Status</span>
+									      <span class="tag is-info">{{timesheet.status}}</span>
 									    </div>
 									  </div>
 
 									  <div class="control">
 									    <div class="tags has-addons">
-									      <span class="tag">Mon</span>
-									      <span class="tag is-primary">{{project.week.monday.hours}} hrs</span>
+									      <span class="tag ">Created:</span>
+									      <span class="tag is-success">{{timesheet.time | date: HH:MM:SS}}</span>
 									    </div>
 									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag">Tue</span>
-									      <span class="tag is-primary">{{project.week.tuesday.hours}} hrs</span>
-									    </div>
-									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag">Wed</span>
-									      <span class="tag is-primary">{{project.week.wednesday.hours}} hrs</span>
-									    </div>
-									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag">Thu</span>
-									      <span class="tag is-primary">{{project.week.thursday.hours}} hrs</span>
-									    </div>
-									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag">Fri</span>
-									      <span class="tag is-primary">{{project.week.friday.hours}} hrs</span>
-									    </div>
-									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag">Sat</span>
-									      <span class="tag is-primary">{{project.week.saturday.hours}} hrs</span>
-									    </div>
-									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag">Sun</span>
-									      <span class="tag is-primary">{{project.week.sunday.hours}} hrs</span>
-									    </div>
-									  </div>
-
-									  <div class="control">
-									    <div class="tags has-addons">
-									      <span class="tag is-info">Total</span>
-									      <span class="tag"><strong>{{project.total}} hrs</strong></span>
-									    </div>
-									  </div>
-						    	</div>
-						    	</div>
-						      <br>
-						      <div class="field is-grouped is-grouped-multiline">
-							  <div class="control">
-							    <div class="tags has-addons">
-							      <span class="tag ">Status</span>
-							      <span class="tag is-info">{{timesheet.status}}</span>
-							    </div>
-							  </div>
-
-							  <div class="control">
-							    <div class="tags has-addons">
-							      <span class="tag ">Created:</span>
-							      <span class="tag is-success">{{timesheet.time}}</span>
-							    </div>
-							  </div>
-							</div>
-						    </div>
+									</div>
+								    </div>
+						  		</div>
+						  	</div>
+						   
 						  </div>
-						  <footer class="card-footer">
-						  	<a href="#" class="card-footer-item">Submit</a>
-						    <a href="#" class="card-footer-item">Edit</a>
-						    <a href="#" class="card-footer-item">Delete</a>
+						  <footer class="card-footer" *ngIf="timesheet.readOnly">
+						  	<a class="card-footer-item" (click)="submitTimesheet(timesheet, timesheet.id)" *ngIf="timesheet.status === 'draft'">Submit</a>
+						    <a class="card-footer-item" *ngIf="timesheet.status !== 'submitted'" (click)="timesheet.readOnly = false;">Edit</a>
+						    <a class="card-footer-item" (click)="deleteTimesheet(timesheet.id)">Delete</a>
 						  </footer>
 						</div>
 				</div>
@@ -209,3 +326,7 @@
     <timesheet-detail-modal timesheetId="timesheet"></timesheet-detail-modal>
   </div>
 </div>
+
+<ng-template #edit>
+	
+</ng-template>

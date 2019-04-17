@@ -22,8 +22,7 @@ const mailTransport = nodemailer.createTransport({
 //  response.send("Hello from Firebase!");
 // });
 
-
-
+// Send an email to invite the manager
 export const managerInvite = functions.firestore.document('clients/{id}')
 
 .onUpdate((change, context) => {
@@ -63,4 +62,31 @@ export const managerInvite = functions.firestore.document('clients/{id}')
 	}
 	console.log('me', managerEmail);
 	return null
+})
+
+export const askForApproval = functions.firestore.document('timesheets/{id}')
+
+.onUpdate((change, context) => {
+	const newValue = change.after.data();
+	const previousValue = change.before.data();
+
+
+	// const mailOptions = {
+	//     from: '"Epochtimetracking" <noreply@firebase.com>',
+	//     to: managerEmail,
+	//     subject: `You have been added as a manager at ${clientName}`,
+	//     html: `<h1>Hi ${managerName}</h1>
+	//     <br>
+	//     <p>You have been listed on epochtimetracking as a mananger for ${userName} at ${clientName}.</p>
+	//     <p>Epoch Time Tracking is an application built for better time management and seamless integrations for making contracting easier.</p>
+	//     <p>If you are joseph's manager click <a href="https://epochtimetracking.com/manager/onboarding?clientID=${clientId}">here</a> to be onboarded as a manager</p>
+	//     <p>Thank You</p>` 
+	// };
+	
+	if(newValue!.status !== previousValue!.status && newValue!.status === "submitted") {
+		console.log('its time to send the email');
+	}
+	else {
+		console.log('timesheet changed but was not submitted');
+	}
 })

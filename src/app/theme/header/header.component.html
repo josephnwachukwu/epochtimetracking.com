@@ -81,15 +81,15 @@
 
     <a *ngIf="auth.user | async as user"class="navbar-item  has-dropdown is-hoverable">
         <a class="navbar-link">
-          <i class="fa fa-user-circle" aria-hidden="true"></i> 
-          {{ user.displayName }} 
+          <i class="fa fa-user-circle" aria-hidden="true"></i> &nbsp;&nbsp;
+          <span style="text-transform: capitalize;">{{ user.displayName }} </span>
         </a>
       <div class="navbar-dropdown">
         <a class="navbar-item" routerLink="/profile" (click)="toggleCollapse()">
-          My Profile
+          <i class="fa fa-address-card"></i> &nbsp;&nbsp; My Profile
         </a>
         <a class="navbar-item" (click)="logout()" (click)="toggleCollapse()">
-          Logout
+          <i class="fa fa-sign-out-alt"></i> &nbsp;&nbsp; Logout
         </a>
       </div>
     </a>

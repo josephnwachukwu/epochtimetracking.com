@@ -6,8 +6,9 @@ import { LoadingSpinnerComponent } from '../ui/loading-spinner/loading-spinner.c
 // Directives
 import { HoursMaskDirective } from './directives/hours-mask.directive'
 import { NumbersOnlyDirective } from './directives/numbersOnly.directive'
-
+import { IconGeneratorDirective } from './directives/iconGenerator.directive';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 import {MatDatepickerModule,
         MatDialogModule,
         MatInputModule,
@@ -26,6 +27,7 @@ import {MatDatepickerModule,
     LoadingSpinnerComponent,
     HoursMaskDirective,
     NumbersOnlyDirective,
+    IconGeneratorDirective,
   ],
   exports: [
     LoadingSpinnerComponent,
@@ -35,6 +37,7 @@ import {MatDatepickerModule,
         MatNativeDateModule,
     HoursMaskDirective,
     NumbersOnlyDirective,
+    IconGeneratorDirective,
   ],
 })
 export class SharedModule { }

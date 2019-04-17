@@ -15,6 +15,7 @@ import { TimesheetService } from '../../timesheets/shared/timesheet.service';
 import { ProjectService } from '../../projects/project.service';
 
 import { TimesheetDetailModalComponent } from '../../timesheets/timesheet-detail-modal/timesheet-detail-modal.component'
+import { TimesheetEditComponent } from '../../timesheets/timesheet-edit/timesheet-edit.component';
 // Models
 import { Client } from '../client.model';
 
@@ -76,8 +77,16 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
 
   }
 
+  deleteTimesheet = (id:string) => {
+    this.timesheetService.deleteTimesheet(id)
+  }
+
   toggleModal = () => {
   	this.timesheetModalActive = !this.timesheetModalActive
+  }
+
+  submitTimesheet = (timesheet:any, id:string) => {
+    this.timesheetService.submitTimesheet(timesheet, id);
   }
 
 }

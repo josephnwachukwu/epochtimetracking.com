@@ -48,6 +48,7 @@
     "core-js": "^2.5.1",
     "firebase": "^5.9.2",
     "moment": "^2.20.1",
+    "ngx-mask": "^7.9.1",
     "nodemailer": "^4.4.1",
     "reflex-grid": "^2.0.1",
     "rxjs": "^6.4.0",
