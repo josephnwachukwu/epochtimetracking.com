@@ -27,7 +27,7 @@
 
 
 <ng-template #guest>
-  <a class="navbar-item" routerLink="/login" (click)="toggleCollapse()">
+  <a class="navbar-item" routerLink="/features" (click)="toggleCollapse()">
       Features
   </a>
 
@@ -35,7 +35,7 @@
       Log In
   </a>
   
-  <a class="navbar-item" routerLink="/login" (click)="toggleCollapse()">
+  <a class="navbar-item" routerLink="/register" (click)="toggleCollapse()">
       Sign Up
   </a>
   
@@ -59,9 +59,9 @@
     <a class="navbar-item" routerLink="/dashboard" (click)="toggleCollapse()">
       Dashboard
     </a>
-    <a class="navbar-item" routerLink="/timesheets" (click)="toggleCollapse()">
+    <!-- <a class="navbar-item" routerLink="/timesheets" (click)="toggleCollapse()">
       Timesheets
-    </a>
+    </a> -->
     <a class="navbar-item has-dropdown is-hoverable" (click)="toggleCollapse()">
       <a class="navbar-link">
         Expenses

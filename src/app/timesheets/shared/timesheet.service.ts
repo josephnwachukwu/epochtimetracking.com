@@ -11,7 +11,7 @@ import { WorkWeek } from './workweek.model'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth.service'
+import { AuthService } from '../../auth/auth.service'
 
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 

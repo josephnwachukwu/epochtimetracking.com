@@ -15,7 +15,7 @@ import { WorkWeek } from '../shared/workweek.model'
 
 
 // Auth
-import { AuthService } from '../../core/auth.service'
+import { AuthService } from '../../auth/auth.service'
 
 //Modal
 import { StartDateComponent } from '../../timesheets/shared/components/start-date/start-date.component'

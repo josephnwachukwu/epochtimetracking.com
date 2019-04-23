@@ -1,15 +1,14 @@
 // Agency Model
 import { Address } from './address.model'
 
-export class Agency {
+export class Company {
   name?:string;
   address?:any;
   phoneNumber?:string;
-  contactName?:string;
-  contactEmail?:string;
-  contactVerified?:boolean;
+  taxIDType?:string;
+  taxID?:string;
+  
   constructor() {
     this.address = Object.assign({}, new Address())
-    this.contactVerified = false;
   }
 }

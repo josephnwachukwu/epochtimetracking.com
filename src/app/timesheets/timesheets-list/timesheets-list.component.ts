@@ -7,9 +7,7 @@ import { Timesheet } from '../shared/timesheet.model';
 
 import { Observable } from 'rxjs';
 
-//import { StartDateComponent } from '../shared/components/start-date/start-date.component'
-
-import { AuthService } from '../../core/auth.service'
+import { AuthService } from '../../auth/auth.service'
 
 @Component({
   selector: 'timesheets-list',
@@ -39,14 +37,4 @@ export class TimesheetsListComponent implements OnInit {
   delete = (id) => {
     this.timesheetService.deleteTimesheet(id)
   }
-
-  // openDialog(): void {
-  //   let dialogRef = this.dialog.open(StartDateComponent, {
-  //     width: '250px'
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-
-  //   });
-  // }
 }

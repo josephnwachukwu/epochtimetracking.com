@@ -5,7 +5,7 @@ import { Client } from '../client.model';
 
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../core/auth.service'
+import { AuthService } from '../../auth/auth.service'
 
 @Component({
   selector: 'clients-list',

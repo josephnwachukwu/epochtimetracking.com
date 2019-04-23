@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-// Components TODO: move to modules
-import { TimesheetsListComponent } from './timesheets/timesheets-list/timesheets-list.component'
-//import { ReadmePageComponent } from './readme-page/readme-page.component';
-import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
-
-
 // Auth
 import { AuthModule } from './auth/auth.module'
-import { AuthGuard } from './core/auth.guard';
-import { CoreModule } from './core/core.module';
+import { AuthGuard } from './auth/auth.guard';
+//import { CoreModule } from './core/core.module';
 
 const routes: Routes = [
   //{ path: '', component: ReadmePageComponent },

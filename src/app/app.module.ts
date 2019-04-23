@@ -23,15 +23,13 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 // Core
-import { CoreModule } from './core/core.module';
+//import { CoreModule } from './core/core.module';
 
 // Auth
 import { AuthModule } from './auth/auth.module';
 
 // Shared/Widget
 import { SharedModule } from './shared/shared.module';
-
-
 
 // Feature Modules
 // Timesheets
@@ -56,8 +54,6 @@ import { UiModule } from './ui/shared/ui.module';
 import { environment } from '../environments/environment';
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +63,6 @@ import { environment } from '../environments/environment';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    CoreModule,
     SharedModule,
     UiModule,
     ProjectsModule,
@@ -82,6 +77,7 @@ import { environment } from '../environments/environment';
     MatFormFieldModule,
     ThemeModule,
     DashboardModule,
+    HomepageModule,
     AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
   ],
   providers: [AppConfigService],
