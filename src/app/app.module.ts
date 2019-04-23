@@ -1,57 +1,66 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-///// Start FireStarter
-
-// Core
-import { CoreModule } from './core/core.module';
-
-// Auth
-import { AuthModule } from './auth/auth.module'
-// Shared/Widget
-import { SharedModule } from './shared/shared.module';
-
-// Feature Modules
-import { TimesheetModule } from './timesheets/shared/timesheet.module';
-//import { UploadsModule } from './uploads/uploads.module';
-import { UiModule } from './ui/shared/ui.module';
-import { ProjectsModule } from './projects/projects.module';
-import { ClientsModule } from './clients/clients.module';
-import { DashboardModule } from './dashboard/dashboard.module';
-//import { ClientFormComponent } from './clients/client-form/client-form.component';
-///// End FireStarter
-import { ReadmePageComponent } from './readme-page/readme-page.component';
-import { environment } from '../environments/environment';
-
-import { AngularFireModule } from 'angularfire2';
-//export const firebaseConfig = environment.firebaseConfig;
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { StartDateComponent } from './timesheets/shared/components/start-date/start-date.component';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+// Angular Material
 import {MatDatepickerModule,
         MatDialogModule,
         MatInputModule,
         MatNativeDateModule,
         MatFormFieldModule, } from '@angular/material';
 
-// Theme, Header, Footer
+// App
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { ThemeModule } from './theme/theme.module';
-
-// Services
 import { AppConfigService } from './app.config';
-//import { TimesheetDetailModalComponent } from './timesheets/timesheet-detail-modal/timesheet-detail-modal.component'
+
+///// Start FireStarter
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+///// End FireStarter
+
+
+// Core
+import { CoreModule } from './core/core.module';
+
+// Auth
+import { AuthModule } from './auth/auth.module';
+
+// Shared/Widget
+import { SharedModule } from './shared/shared.module';
+
+
+
+// Feature Modules
+// Timesheets
+import { TimesheetModule } from './timesheets/shared/timesheet.module';
+
+// Projects
+import { ProjectsModule } from './projects/projects.module';
+
+// Dashboard
+import { DashboardModule } from './dashboard/dashboard.module';
+
+// Homepage
+import { HomepageModule } from './homepage/homepage.module';
+
+// Clients
+import { ClientsModule } from './clients/clients.module';
+
+// Shared Ui Components
+import { UiModule } from './ui/shared/ui.module';
+
+// Environment Variables
+import { environment } from '../environments/environment';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    ReadmePageComponent,
-    //TimesheetDetailModalComponent,
-    //ClientFormComponent
   ],
   imports: [
     BrowserModule,
@@ -79,8 +88,6 @@ import { AppConfigService } from './app.config';
   bootstrap: [
     AppComponent,
   ],
-  entryComponents: [
-    StartDateComponent
-  ]
+  entryComponents: []
 })
 export class AppModule { }
