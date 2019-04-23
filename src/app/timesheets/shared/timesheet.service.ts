@@ -20,8 +20,6 @@ export class TimesheetService {
 
   private basePath = '/timesheets';
 
-  //timesheetsRef: AngularFireList<Timesheet>;
-  //timesheetRef:  AngularFireObject<Timesheet>;
   timesheetsCollection: AngularFirestoreCollection<any>;
   timesheetDocument: AngularFirestoreDocument<Node>;
   timesheets: Observable<any[]>;
@@ -29,6 +27,8 @@ export class TimesheetService {
   events: string[] = [];
   dates:any[] = [];
   userData:any;
+
+  
   constructor( private afs:AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth, public route: ActivatedRoute) {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
@@ -59,14 +59,7 @@ export class TimesheetService {
         })
       })
     );
-  }  
-
-  // Return a single observable timesheet
-  //getTimesheet(key: string): Observable<Timesheet | null> {
-  //  const timesheetPath = `${this.basePath}/${key}`;
-  //  const timesheet = this.db.object(timesheetPath).valueChanges() as Observable<Timesheet | null>;
-  //  return timesheet;
-  //}
+  }
 
   getTimesheet(id: string) {
     return this.afs.doc<Timesheet>(`timesheets/${id}`)
@@ -83,11 +76,6 @@ export class TimesheetService {
     timesheet.readOnly = true;
     return this.timesheetsCollection.add(Object.assign({},timesheet));
   }
-
-  // Update an exisiting timesheet
-  // updateTimesheet(key: string, value: any): void {
-  //   this.timesheetsRef.update(key, value);
-  // }
 
   updateTimesheetStatus = (id: string, data: Partial<Timesheet>) => {
     //console.log('data',data)
@@ -152,7 +140,7 @@ export class TimesheetService {
 
       titleStr = ts.title + '\r\n';
 
-      preStr = 'Inititative,Cient,';
+      preStr = 'Project,Task,';
 
       preStr += ts.projects[0].week.monday.day + ',';
       preStr += ts.projects[0].week.tuesday.day + ',';
@@ -165,8 +153,8 @@ export class TimesheetService {
       preStr += '\r\n';
 
       for(let i in ts.projects) {
-        str += ts.projects[i].initiative + ',';
-        str += ts.projects[i].client + ',';
+        str += ts.projects[i].initiative.name + ',';
+        str += ts.projects[i].task + ',';
         str += ts.projects[i].week.monday.hours + ',';
         str += ts.projects[i].week.tuesday.hours + ',';
         str += ts.projects[i].week.wednesday.hours + ',';

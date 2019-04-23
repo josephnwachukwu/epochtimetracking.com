@@ -18,7 +18,7 @@
 			    Reports
 			  </a>
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'invoices'}" (click)="activePanel = 'invoices'">
-			    <i class="fa fa-file-invoice-dollar"></i> &nbsp; &nbsp; Invoices
+			    Invoices
 			  </a>
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'editClient'}" (click)="activePanel = 'editClient'">
 			    Update Client Info
@@ -282,6 +282,7 @@
 						  	<a class="card-footer-item" (click)="submitTimesheet(timesheet, timesheet.id)" *ngIf="timesheet.status === 'draft'">Submit</a>
 						    <a class="card-footer-item" *ngIf="timesheet.status !== 'submitted'" (click)="timesheet.readOnly = false;">Edit</a>
 						    <a class="card-footer-item" (click)="deleteTimesheet(timesheet.id)">Delete</a>
+						    <a class="card-footer-item" (click)="exportTimesheet(timesheet)">Export to Excel</a>
 						  </footer>
 						</div>
 				</div>

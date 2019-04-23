@@ -2,98 +2,95 @@
   <div class="columns">
     <div class="column is-3">
       <nav class="panel">
-  <a class="panel-block is-active">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-    bulma
-  </a>
-  <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-    marksheet
-  </a>
-  <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-    minireset.css
-  </a>
-  <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
-    </span>
-    jgthms.github.io
-  </a>
-  <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-code-branch" aria-hidden="true"></i>
-    </span>
-    daniellowtw/infboard
-  </a>
-  <a class="panel-block">
-    <span class="panel-icon">
-      <i class="fas fa-code-branch" aria-hidden="true"></i>
-    </span>
-    mojs
-  </a>
-  <label class="panel-block">
-    <input type="checkbox">
-    remember me
-  </label>
-  <div class="panel-block">
-    <button class="button is-link is-outlined is-fullwidth">
-      reset all filters
-    </button>
-  </div>
-</nav>
+        <a class="panel-block is-active">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          bulma
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          marksheet
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          minireset.css
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          jgthms.github.io
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          daniellowtw/infboard
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          mojs
+        </a>
+        <label class="panel-block">
+          <input type="checkbox">
+          remember me
+        </label>
+        <div class="panel-block">
+          <button class="button is-link is-outlined is-fullwidth">
+            reset all filters
+          </button>
+        </div>
+      </nav>
     </div>
     <div class="column is-9">
 
-<div class="container">
-  <div class="notification is-danger">
-    <button class="delete"></button>
-    You have not added your billnig information let.
-  </div>
-  <div class="notification is-danger">
-    <button class="delete"></button>
-    You have not added an agency yet. You will not be able to send invoices until you add an agency
-  </div>
+      <div class="container">
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          You have not added your billnig information let.
+        </div>
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          You have not added an agency yet. You will not be able to send invoices until you add an agency
+        </div>
 
-  <div class="card" *ngFor="let client of clients | async">
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image is-48x48">
-          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-        </figure>
+        <div class="card" *ngFor="let client of clients | async" [routerLink]="['/client', client.id]">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">{{client.clientName}}</p>
+                <p class="subtitle is-6">{{client.id}}</p>
+              </div>
+            </div>
+
+            <div class="content">
+              description will go here 
+              <br>
+              <time datetime="2016-1-1">{{client.time}}</time>
+            </div>
+          </div>
+        </div>
+
+        <button (click)="toggleClientModal()" class="button is-info">Add Client</button>
       </div>
-      <div class="media-content">
-        <p class="title is-4">{{client.clientName}}</p>
-        <p class="subtitle is-6">{{client.id}}</p>
-      </div>
-    </div>
-
-    <div class="content">
-      description will go here 
-      <br>
-      <time datetime="2016-1-1">{{client.time}}</time>
-    </div>
-  </div>
-</div>
-
-<button (click)="toggleClientModal()" class="button is-info">Add Client</button>
-</div>
 
 
 
     </div>
   </div>
 </div>
-
-
-
 
 
 <div class="modal" [ngClass]="{'is-active': addClientModalActive === true}" #addClient>

@@ -89,4 +89,8 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
     this.timesheetService.submitTimesheet(timesheet, id);
   }
 
+  exportTimesheet = (timesheet:any) => {
+    this.timesheetService.ConvertToCSV2(timesheet);
+  }
+
 }
