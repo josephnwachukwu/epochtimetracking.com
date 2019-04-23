@@ -30,6 +30,6 @@ export class User {
 
   constructor() {
     this.agency = Object.assign({}, new Agency())
-    //this.company = Object.assign({}, new Company())
+    this.company = Object.assign({}, new Company())
   }
 }

@@ -21,10 +21,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 ///// End FireStarter
 
-
-// Core
-//import { CoreModule } from './core/core.module';
-
 // Auth
 import { AuthModule } from './auth/auth.module';
 

@@ -145,24 +145,6 @@ export class AuthService {
   updateUserData(user: User) {
 
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-    console.log(user);
-    const data: User = {
-      uid: user.uid,
-      email: user.email || null,
-      displayName: user.displayName || 'nameless user',
-      photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
-      companyName: user.companyName || null,
-      companyID: user.companyID || null,
-      tier: user.tier || 'starter',
-      managerName: user.managerName || null,
-      managerID: user.managerID || null,
-      managerVerified: user.managerVerified || false,
-      managerEmail: user.managerEmail || null,
-      businessName: user.businessName || null,
-      taxIdType: user.taxIdType || null,
-      taxID: user.taxID || null,
-
-    };
-    return userRef.set(data);
+    return userRef.set(user);
   }
 }

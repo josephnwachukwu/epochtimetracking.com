@@ -249,31 +249,35 @@ export class ProfileComponent {
   businessType:any = [
     {
       name: 'Sole Proprietorship',
-      value: ''
+      value: 'sole_propritetor'
     },
     {
       name: 'Partnership',
-      value: ''
+      value: 'partnership'
     },
     {
       name: 'Corporation',
-      value: ''
+      value: 'corporation'
     },
     {
       name: 'Limited Liability Company',
-      value: ''
+      value: 'llc'
     },
     {
       name: 'Cooperative',
-      value: ''
+      value: 'cooperative'
     },
   ]
 
   taxIdType:any = [
     {
-      name: '',
-      value: ''
-    }
+      name: 'Social Security Number',
+      value: 'SSN'
+    },
+    {
+      name: 'Employer Identification',
+      value: 'EIN'
+    },
   ]
   constructor(public auth: AuthService) { }
 
