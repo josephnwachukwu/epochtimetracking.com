@@ -38,5 +38,8 @@ import {NgxMaskModule} from 'ngx-mask'
   providers: [
     TimesheetService,
   ],
+  entryComponents: [
+    StartDateComponent
+  ]
 })
 export class TimesheetModule { }

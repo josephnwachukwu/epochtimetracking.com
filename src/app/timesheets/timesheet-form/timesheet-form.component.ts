@@ -163,7 +163,7 @@ export class TimesheetFormComponent implements OnInit {
       let titleDate = new Date(selectedDate)
       titleDate.setDate((selectedDate.getDate() + 4))
       this.timesheet.title += ' ' + titleDate.toDateString();
-      this.timesheet.weekStarting = this.timesheet.date;
+      this.timesheet.weekStarting = this.timesheet.date.toDateString();
       this.timesheet.weekEnding = titleDate.toDateString()
       Object.keys(this.timesheet.projects[0].week).map((key, index) => {
         let tempDate = new Date(selectedDate);

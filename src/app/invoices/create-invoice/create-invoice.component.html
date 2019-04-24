@@ -1,3 +1,74 @@
-<p>
-  create-invoice works!
-</p>
+<div class="box">
+	<div class="container">
+	    <ul class="steps">
+	      <li class="steps-segment">
+	        <a href="#" class="steps-marker"></a>
+	      </li>
+	      <li class="steps-segment">
+	        <a href="#" class="steps-marker"></a>
+	      </li>
+	      <li class="steps-segment is-active">
+	        <span class="steps-marker"></span>
+	      </li>
+	      <li class="steps-segment">
+	        <span class="steps-marker"></span>
+	      </li>
+	      <li class="steps-segment">
+	        <span class="steps-marker"></span>
+	      </li>
+	    </ul>
+		<hr>
+
+		<h5 class="title is-5">Step 1: Agency</h5>
+		<ul *ngIf="user">
+			<li><strong>Name:</strong> {{user.agency.name}}</li>
+			<li><strong>Address:</strong> 
+				<ul>
+					<li>{{user.agency.address.addressLine1}}, {{user.agency.address.addressLine2}}</li>
+					<li>{{user.agency.address.city}}, {{user.agency.address.state}} {{user.agency.address.zipcode}}</li>
+				</ul>
+			</li>
+		</ul>
+		<hr>
+		<h5 class="title is-5">Step 2: Your Business</h5>
+		<p>Your company or sole proprietorship that you normally use for invoicing</p>
+		<ul *ngIf="user">
+			<li><strong>Name:</strong> {{user.company.name}}</li>
+			<li><strong>Address:</strong> 
+				<ul>
+					<li>{{user.company.address.addressLine1}}, {{user.company.address.addressLine2}}</li>
+					<li>{{user.company.address.city}}, {{user.company.address.state}} {{user.company.address.zipcode}}</li>
+				</ul>
+			</li>
+		</ul>
+		<hr>
+		<h5 class="title is-5">Step 3: Line Items</h5>
+		<p>Select the timesheets you would like to apply to this invoice. Only billable projects from each timesheet will be added to the invoice</p>
+		<div class="" *ngFor="let timesheet of timesheetService.timesheets | async" >
+			<div class="columns" *ngIf="!timesheet.invoiced">
+				<div class="column is-1">
+					<input type="checkbox">
+				</div>
+				<div class="column is-11">
+					<div class="card" >
+						<header class="card-header">
+						    <p class="card-header-title">
+						      {{timesheet.weekStarting}} - {{timesheet.weekEnding}}
+						    </p>
+						  </header>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="level">
+			<div class="level-left">
+				<div class="level-item">
+					<button class="button is-medium is-success">Add Line Items</button>
+				</div>
+				<div class="level-item">
+					<button class="button is-medium is-success">Add Custom Item</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
