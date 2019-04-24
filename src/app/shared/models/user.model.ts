@@ -3,7 +3,7 @@ import { Agency } from './agency.model'
 import { Company } from './company.model'
 
 
-export type tier = 'user' | 'manager' | 'vendor';
+export type tier = 'user' | 'manager' | 'vendor' | 'starter' | 'startup' | 'growing' | 'enterprise';
 
 
 export class User {
@@ -18,6 +18,8 @@ export class User {
   firstName?:string;
   lastName?:string;
   isAdmin?:boolean;
+
+  tier?:string
 
   // Company Informatoin
   company?:any;

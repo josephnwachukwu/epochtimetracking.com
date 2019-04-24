@@ -39,7 +39,7 @@ export class ClientService {
 
 
   getClient(id: string) {
-    return this.afs.doc<any>(`clients/${id}`);
+    return this.afs.doc<Client>(`clients/${id}`);
   }
 
   createClient(client: any) {

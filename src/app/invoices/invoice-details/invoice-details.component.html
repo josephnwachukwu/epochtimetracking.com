@@ -1,3 +1,78 @@
-<p>
-  invoice-details works!
-</p>
+<div class="box" *ngIf="invoice | async as invoice">
+	<div class="container">
+		<h4 class="title is-4">Invoice</h4>
+		<div class="level">
+			<div class="level-left">
+				<div class="level-item">
+					<ul>
+						<li><h5 class="title is-5">{{invoice.company.name}}</h5></li>
+						<li>{{invoice.company.address.addressLine1}}, {{invoice.company.address.addressLine2}}</li>
+						<li>{{invoice.company.address.city}}, {{invoice.company.address.state}} {{invoice.company.address.zipcode}}</li>
+						<li>{{invoice.company.phoneNumber}}</li>
+						<li>{{invoice.company.email}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="level">
+			<div class="level-left">
+				<div class="level-item">
+					<ul>
+						<li><strong>Bill To</strong></li>
+						<li>ACCOUNTS PAYABLE</li>
+						<li>{{invoice.agency.name}}</li>
+						<li>{{invoice.agency.address.addressLine1}}, {{invoice.agency.address.addressLine2}}</li>
+						<li>{{invoice.agency.address.city}}, {{invoice.agency.address.state}} {{invoice.agency.address.zipcode}}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="level-right">
+				<div class="level-item">
+					<ul>
+						<li><strong>For:</strong></li>
+						<li>{{user?.displayName || "Joe Nwachukwu"}}</li>
+						<li>Consulting Hours and/or Expenses</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Hours</th>
+					<th>Rate</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let lineItem of invoice.lineItems">
+					<td>{{lineItem.weekStarting}} - {{lineItem.weekEnding}}</td>
+					<td>{{lineItem.totalHours}}</td>
+					<td>{{invoice.agency.rate}}</td>
+					<td>{{lineItemTotal(lineItem.totalHours, invoice.agency.rate)}}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>{{calculateTotal(invoice)}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="level">
+			<div class="level-left">
+				<div class="level-item">
+					<ul>
+						<li>Make checks payable to:</li>
+						<li>{{invoice.company.name}}</li>
+						<li>Total due upon reciept</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

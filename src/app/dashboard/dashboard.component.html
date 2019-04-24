@@ -4,39 +4,21 @@
       <div class="box">
         <nav class="panel">
           <a class="panel-block is-active" routerLink="/profile">
-            <span class="panel-icon">
-              <i class="fas fa-book" aria-hidden="true"></i>
-            </span>
             My Profile
           </a>
           <a class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-book" aria-hidden="true"></i>
-            </span>
-            marksheet
+            Clients
           </a>
           <a class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-book" aria-hidden="true"></i>
-            </span>
-            minireset.css
+            Reports
           </a>
           <a class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-book" aria-hidden="true"></i>
-            </span>
             jgthms.github.io
           </a>
           <a class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-code-branch" aria-hidden="true"></i>
-            </span>
             daniellowtw/infboard
           </a>
           <a class="panel-block">
-            <span class="panel-icon">
-              <i class="fas fa-code-branch" aria-hidden="true"></i>
-            </span>
             mojs
           </a>
         </nav>
@@ -75,12 +57,14 @@
             </div>
           </div>
         </div>
-
-        <button (click)="toggleClientModal()" class="button is-info">Add Client</button>
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <button (click)="toggleClientModal()" class="button is-info">Add Client</button>
+            </div>
+          </div>
+        </div>
       </div>
-
-
-
     </div>
   </div>
 </div>

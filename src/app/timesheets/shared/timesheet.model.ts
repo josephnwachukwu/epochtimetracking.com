@@ -36,23 +36,27 @@ export class Timesheet {
 	managerEmail:string;
 	userEmail:string;
 	date:any;
-	
-	readOnly:boolean;
-	
+
+	// This is the flag for editing
+	readOnly?:boolean;
+
+	// Has timesheet Been Invoiced
+	invoiced:boolean;
 	weekEnding:string;
 	weekStarting:string;
 	active = true;
 	projects:any[];
-
+	comments:any[];
+	
 	constructor() {
-
 		let workWeek = new WorkWeek()
-    let temp = Object.assign({}, {...workWeek})
+    	let temp = Object.assign({}, {...workWeek})
 		this.projects = [];
 		this.projects.push({...temp})
 		this.title = "Timesheet Ending "
 		this.status = "draft"
-    this.uid = ''
-    this.overlapping = false
+    	this.uid = ''
+    	this.overlapping = false;
+    	this.invoiced = false;
 	}
 }

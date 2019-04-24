@@ -8,6 +8,8 @@ export class Agency {
   contactName?:string;
   contactEmail?:string;
   contactVerified?:boolean;
+  rate?:string;
+  
   constructor() {
     this.address = Object.assign({}, new Address())
     this.contactVerified = false;

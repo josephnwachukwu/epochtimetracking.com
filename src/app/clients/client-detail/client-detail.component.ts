@@ -73,6 +73,10 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
     return this.afs.doc<Client>(`clients/${id}`);
   }
 
+  updateClient(id:string, client: Client) {
+    this.clientService.updateClient(this.clientId, client)
+  }
+
   getTimesheets() {
 
   }

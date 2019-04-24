@@ -1,5 +1,5 @@
 export class Client {
-  //id?: string;
+  id?: string;
   time?: number;
   userId?: string;
   managerId?: string;
@@ -10,6 +10,7 @@ export class Client {
   vacationHours?: number;
   sickHours?: number;
   clientName?: string;
+  hourlyRate?:string;
   constructor() {
     this.managerVerified = false;
     this.projects = []
