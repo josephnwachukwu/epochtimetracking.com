@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
@@ -10,7 +10,8 @@ import { InvoiceService } from './invoice.service';
 @NgModule({
   imports: [
     CommonModule,
-    InvoicesRoutingModule
+    InvoicesRoutingModule,
+    FormsModule
   ],
   declarations: [CreateInvoiceComponent, InvoiceListComponent, InvoiceDetailsComponent],
   providers: [InvoiceService],
