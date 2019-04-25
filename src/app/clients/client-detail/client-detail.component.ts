@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { ClientService } from '../client.service';
 import { TimesheetService } from '../../timesheets/shared/timesheet.service';
 import { ProjectService } from '../../projects/project.service';
-
+import { InvoiceService } from '../../invoices/invoice.service';
 import { TimesheetDetailModalComponent } from '../../timesheets/timesheet-detail-modal/timesheet-detail-modal.component'
 import { TimesheetEditComponent } from '../../timesheets/timesheet-edit/timesheet-edit.component';
 // Models
@@ -43,7 +43,7 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
   tasks: Observable<any[]>;
 
   timesheetModalActive: boolean = false;
-  constructor(private clientService: ClientService, private route: ActivatedRoute, private afs: AngularFirestore, public timesheetService: TimesheetService ) { 
+  constructor(private clientService: ClientService, private route: ActivatedRoute, private afs: AngularFirestore, public timesheetService: TimesheetService, public invoiceService: InvoiceService) { 
   	
   }
 
@@ -57,7 +57,7 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
   	
   	// this.projects = this.projectsService.getData();
   	// this.expenses = this.expensesService.getData();
-  	// this.invoices = this.invoicesService.getData();
+  	this.invoices = this.invoiceService.getData();
   	// this.reports = this.reportsService.getData();
   }
 

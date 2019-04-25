@@ -306,9 +306,12 @@
 			</div>
 
 			<!-- Invoices Panel -->
-			<div *ngIf="activePanel ==='invoices'">
+			<div [hidden]="activePanel !=='invoices'">
 				<h3>Invoices</h3>
 				<hr>
+				<div *ngFor="let invoice of invoices | async">
+					fa;lkdf'a;lkf'la;kdf';alkdf';alkf
+				</div>
 			</div>
 
 			<!-- Edit Client Panel -->

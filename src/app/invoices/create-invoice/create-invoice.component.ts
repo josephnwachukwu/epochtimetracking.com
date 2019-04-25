@@ -30,6 +30,7 @@ export class CreateInvoiceComponent implements OnInit {
   		this.invoice.company = Object.assign({}, this.user.company)
   		this.invoice.agency = Object.assign({}, this.user.agency)
   		this.invoice.date = new Date().toDateString();
+  		this.invoice.displayName = this.user.displayName
   	})
   }
 
@@ -75,4 +76,9 @@ export class CreateInvoiceComponent implements OnInit {
   	this.invoice.finalTotal = finalTotal;
   	return finalTotal
   }
+
+  toggleFeature = (feature, event) => {
+  	this.invoice[feature] = event.target.checked
+  }
 }
+

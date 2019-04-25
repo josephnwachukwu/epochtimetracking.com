@@ -3,7 +3,6 @@ import { Company } from '../shared/models/company.model'
 
 export class Invoice {
 
-
 	// Invoice name 
 	name?:string;
 	company?:any;
@@ -17,7 +16,7 @@ export class Invoice {
 	date:string;
 	// Invoice Line Items
 	lineItems?:any[];
-	tax: number;
+	
 	subtotal: number;
 	taxAmount:number;
 	// Functions
@@ -25,13 +24,26 @@ export class Invoice {
 	calcTax:any;
 	calcTotal:any;
 	notes: string;
-	discount: number;
+	
+	// Total
 	finalTotal:number;
 	term: string;
-	isDiscount:boolean;
-	isTaxable:boolean;
+
+	// Discount
+	hasDiscount:boolean;
+	discount: number;
+
+	// Tax
+	hasTax:boolean;
+	tax: number;
+
+	// Comments
+	hasComments:boolean;
+	comments:string;
 
 
+	for:string;
+	
 	constructor() {
 		this.lineItems = [];
 		this.agency = Object.assign({}, new Agency());
@@ -39,24 +51,10 @@ export class Invoice {
 		this.tax = 0;
 		this.subtotal = 0;
 		this.discount = 0;
-
-		// this.calcSubtotal = () => {
-		// 	let subtotal = 0;
-		// 	for(let i in this.lineItems) {
-		// 		subtotal += this.lineItems[i] * this.agency.rate
-		// 	}
-		// 	this.subtotal = subtotal;
-		// }
-
-		// this.calcTax = () => {
-		// 	let sum = 0;
-		// 	sum += this.subtotal * (1 * this.tax)
-		// 	return sum
-		// }
-
-		// this.calcTotal = () => {
-
-		// }
-
+		this.for = 'Consulting Hours and/or Expenses';
+		this.term = 'Upon Reciept'
+		this.hasDiscount = false;
+		this.hasComments = false;
+		this.hasTax = false;
 	}
 }
