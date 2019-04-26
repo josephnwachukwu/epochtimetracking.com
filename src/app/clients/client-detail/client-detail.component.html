@@ -11,17 +11,18 @@
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'projects'}" (click)="activePanel = 'projects'">
 			    Projects
 			  </a>
+			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'invoices'}" (click)="activePanel = 'invoices'">
+			    Invoices
+			  </a>
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'expenses'}" (click)="activePanel = 'expenses'">
 			    Expenses
 			  </a>
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'reports'}" (click)="activePanel = 'reports'">
 			    Reports
 			  </a>
-			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'invoices'}" (click)="activePanel = 'invoices'">
-			    Invoices
-			  </a>
+			  
 			  <a class="panel-block" [ngClass]="{'is-active': activePanel === 'editClient'}" (click)="activePanel = 'editClient'">
-			    Update Client Info
+			    Client Information
 			  </a>
 			</nav>
 		</div>
@@ -306,12 +307,22 @@
 			</div>
 
 			<!-- Invoices Panel -->
-			<div [hidden]="activePanel !=='invoices'">
-				<h3>Invoices</h3>
-				<hr>
-				<div *ngFor="let invoice of invoices | async">
-					fa;lkdf'a;lkf'la;kdf';alkdf';alkf
+			<div *ngIf="activePanel ==='invoices'">
+				<div class="level">
+					<div class="level-left">
+						<div class="level-item">
+							<h4 class="title is-4">Invoices</h4>
+						</div>
+					</div>
+					<div class="level-right">
+						<div class="level-item">
+							<button class="button is-success" [routerLink]="['/createInvoice', clientId]"> + New Invoice</button>
+						</div>
+					</div>
 				</div>
+				
+				<hr>
+				<invoice-list [clientId]="clientId"></invoice-list>
 			</div>
 
 			<!-- Edit Client Panel -->

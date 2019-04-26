@@ -56,5 +56,6 @@ export class Invoice {
 		this.hasDiscount = false;
 		this.hasComments = false;
 		this.hasTax = false;
+		this.name = 'Invoice ' + new Date().toDateString()
 	}
 }

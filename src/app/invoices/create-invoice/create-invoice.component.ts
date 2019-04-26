@@ -7,6 +7,7 @@ import { TimesheetService } from '../../timesheets/shared/timesheet.service';
 
 import { Observable } from 'rxjs';
 import { Invoice } from '../invoice.model';
+import { InvoiceService } from '../invoice.service';
 import { LineItem } from '../lineItem.model';
 
 @Component({
@@ -20,12 +21,12 @@ export class CreateInvoiceComponent implements OnInit {
 	invoice:any = new Invoice();
 	activeTab:string = 'edit';
 
-  constructor(public auth: AuthService, public timesheetService: TimesheetService, private route: ActivatedRoute,) { }
+  constructor(public auth: AuthService, public timesheetService: TimesheetService, private route: ActivatedRoute, public invoiceService: InvoiceService) { }
 
   ngOnInit() {
   	this.auth.user.subscribe((data) => {
   		this.user = data
-  		this.invoice.userId = this.user.id;
+  		this.invoice.userId = this.user.uid;
   		this.invoice.clientId =  this.route.snapshot.paramMap.get("id");
   		this.invoice.company = Object.assign({}, this.user.company)
   		this.invoice.agency = Object.assign({}, this.user.agency)
@@ -79,6 +80,10 @@ export class CreateInvoiceComponent implements OnInit {
 
   toggleFeature = (feature, event) => {
   	this.invoice[feature] = event.target.checked
+  }
+
+  createInvoice(invoice) {
+    this.invoiceService.createInvoice(invoice)
   }
 }
 

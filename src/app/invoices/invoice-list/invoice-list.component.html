@@ -1,3 +1,23 @@
-<p>
-  invoice-list works!
-</p>
+
+<!-- <div class="card" >
+	<div class="card-content">
+		<h5 class="title is-5"></h5>
+	</div>
+</div> -->
+
+<div class="card" *ngFor="let invoice of invoices | async" [routerLink]="['/viewInvoice', invoice.id]">
+  <header class="card-header">
+    <p class="card-header-title">
+      {{invoice.name}}
+    </p>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">Email</a>
+    <a href="#" class="card-footer-item">Delete</a>
+  </footer>
+</div>

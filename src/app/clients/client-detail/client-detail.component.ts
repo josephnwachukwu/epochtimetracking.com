@@ -57,7 +57,7 @@ export class ClientDetailComponent implements OnInit, AfterContentInit {
   	
   	// this.projects = this.projectsService.getData();
   	// this.expenses = this.expensesService.getData();
-  	this.invoices = this.invoiceService.getData();
+  	//this.invoices = this.invoiceService.getData(this.clientId);
   	// this.reports = this.reportsService.getData();
   }
 
