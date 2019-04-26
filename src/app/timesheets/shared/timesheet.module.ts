@@ -7,7 +7,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { SharedModule } from '../../shared/shared.module';
 
 import { TimesheetService } from './timesheet.service';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TimesheetsListComponent } from '../timesheets-list/timesheets-list.component';
 import { TimesheetFormComponent } from '../timesheet-form/timesheet-form.component';
 import { TimesheetDetailComponent } from '../timesheet-detail/timesheet-detail.component';
@@ -24,6 +24,7 @@ import {NgxMaskModule} from 'ngx-mask'
     ReactiveFormsModule,
     FormsModule,
     AngularFireDatabaseModule,
+    NgxChartsModule,
     NgxMaskModule.forRoot(),
   ],
   declarations: [

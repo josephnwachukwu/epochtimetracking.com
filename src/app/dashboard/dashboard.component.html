@@ -3,13 +3,16 @@
     <div class="column is-2">
       <div class="box">
         <nav class="panel">
-          <a class="panel-block is-active" routerLink="/profile">
+          <!-- <a class="panel-block" routerLink="/profile">
             My Profile
+          </a> -->
+          <a class="panel-block" (click)="activeTab = 'home'" [ngClass]="{'is-active': activeTab === 'home'}">
+            Home
           </a>
-          <a class="panel-block">
+          <a class="panel-block" (click)="activeTab = 'clients'" [ngClass]="{'is-active': activeTab === 'clients'}">
             Clients
           </a>
-          <a class="panel-block">
+          <a class="panel-block" (click)="activeTab = 'reports'" [ngClass]="{'is-active': activeTab === 'reports'}">
             Reports
           </a>
           <a class="panel-block">
@@ -25,42 +28,84 @@
       </div>
     </div>
     <div class="column is-10">
-
-      <div class="box container">
-        <div class="notification is-warning">
-          <button class="delete"></button>
-          You have not added your billnig information let.
-        </div>
-        <div class="notification is-warning">
-          <button class="delete"></button>
-          You have not added an agency yet. You will not be able to send invoices until you add an agency
-        </div>
-
-        <div class="card" *ngFor="let client of clients | async" [routerLink]="['/client', client.id]">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">{{client.clientName}}</p>
-                <p class="subtitle is-6">{{client.id}}</p>
+      <div class="box container dashboard">
+        <div *ngIf="activeTab === 'home'">
+          <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <h4 class="title is-4">Home</h4>
+                </div>
               </div>
             </div>
-
-            <div class="content">
-              description will go here 
-              <br>
-              <time datetime="2016-1-1">{{client.time}}</time>
+            <hr>
+          <div class="columns">
+            <div class="column is-12">
+               <div class="notification is-warning">
+                  <button class="delete"></button>
+                  You have not added your billnig information let.
+                </div>
+                <div class="notification is-warning">
+                  <button class="delete"></button>
+                  You have not added an agency yet. You will not be able to send invoices until you add an agency
+                </div>
             </div>
           </div>
         </div>
-        <div class="level">
-          <div class="level-left">
-            <div class="level-item">
-              <button (click)="toggleClientModal()" class="button is-info">Add Client</button>
+        <div *ngIf="activeTab === 'clients'">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <h4 class="title is-4">Clients</h4>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <button (click)="toggleClientModal()" class="button is-info">+ Add Client</button>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="card" *ngFor="let client of clients | async" [routerLink]="['/client', client.id]">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">{{client.clientName}}</p>
+                  <p class="subtitle is-6">{{client.id}}</p>
+                </div>
+              </div>
+
+              <div class="content">
+                description will go here 
+                <br>
+                <time datetime="2016-1-1">{{client.time}}</time>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="activeTab === 'reports'">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <h4 class="title is-4">Reports</h4>
+                </div>
+              </div>
+            </div>
+            <hr>
+          <div class="columns">
+            <div class="column is-6">
+              <ngx-charts-pie-chart
+                  [view]="view"
+                  [scheme]="colorScheme"
+                  [results]="multi"
+                  [gradient]="gradient"
+                  [legend]="showLegend"
+                  (select)="onSelect($event)">
+              </ngx-charts-pie-chart>
             </div>
           </div>
         </div>
@@ -86,3 +131,15 @@
     </footer>
   </div>
 </div>
+
+<!-- <div class="modal" [ngClass]="{'is-active': reportModal === true}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+    </header>
+    <section class="modal-card-body">
+    </section>
+    <footer class="modal-card-foot">
+    </footer>
+  </div>
+</div> -->

@@ -10,6 +10,8 @@ import { Invoice } from '../invoice.model';
 import { InvoiceService } from '../invoice.service';
 import { LineItem } from '../lineItem.model';
 
+import * as jsPDF from 'jspdf'
+
 @Component({
   selector: 'create-invoice',
   templateUrl: './create-invoice.component.html',

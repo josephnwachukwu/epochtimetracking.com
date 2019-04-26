@@ -20,6 +20,16 @@
 		<div [hidden]="activeTab!=='edit'">
 			<div class="columns">
 				<div class="column is-6">
+					<div class="field">
+					  <label class="label">Invoice Name</label>
+					  <div class="control">
+					    <input class="input" type="text" [(ngModel)]="invoice.name" placeholder="company Address">
+					  </div>
+					</div>
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column is-6">
 					<h4 class="title is-4">From:</h4>
 					<h5 class="title is-5">Company</h5>
 					<p>Details about your company</p>
@@ -117,12 +127,7 @@
 					    <input class="input" type="text" [(ngModel)]="invoice.date" placeholder="Date">
 					  </div>
 					</div>
-<!-- 					<div class="field">
-					  
-					  <div class="control">
-					    <input class="input" type="text"  placeholder="Term">
-					  </div>
-					</div> -->
+ 
 					<div class="field">
 					  <label class="label">Terms</label>
 					  <div class="control">
@@ -174,6 +179,7 @@
 							<li>Only billable projects from each timesheet will be added to the invoice</li>
 							<li>Only approved timesheets can be added to this invoice</li>
 						</ul>
+						<br><br>
 					<div class="" *ngFor="let timesheet of timesheetService.timesheets | async" >
 						<div class="columns" *ngIf="!timesheet.invoiced">
 							<div class="column is-1 is-centered">
@@ -188,7 +194,7 @@
 									  </header>
 									  <div class="card-content">
 									  	<div *ngFor="let project of timesheet.projects">
-									  		<div *ngIf="project.billable">
+									  		<div *ngIf="project.initiative.billable">
 									  			{{project.initiative.name}} - {{project.task}} - {{project.total}} Hrs
 									  		</div>
 									  	</div>

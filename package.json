@@ -47,6 +47,8 @@
     "bulma": "^0.7.4",
     "core-js": "^2.5.1",
     "firebase": "^5.9.2",
+    "html2canvas": "^1.0.0-rc.1",
+    "jspdf": "^1.5.3",
     "moment": "^2.20.1",
     "ngx-mask": "^7.9.1",
     "nodemailer": "^4.4.1",

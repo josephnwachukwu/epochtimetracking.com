@@ -5,7 +5,8 @@ export class Project {
   clientId?:string;
   description?:string;
   time?: number;
+  billable?: boolean;
   constructor() {
-
+  	this.billable = true;
   }
 }

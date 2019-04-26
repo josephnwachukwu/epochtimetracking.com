@@ -16,7 +16,37 @@ export class DashboardComponent implements OnInit {
 
   clients: Observable<any[]>
 
+  activeTab: string = 'home';
   addClientModalActive:boolean = false;
+
+  view: any[] = [700, 400];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Number';
+  showYAxisLabel = true;
+  yAxisLabel = 'Color Value';
+  //timeline = true;
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+  multi: any[] = [
+    {
+      name: 'Project 1',
+      value: '25'
+    },
+    {
+      name: 'Project 2',
+      value: '15'
+    }
+  ];
+
   constructor(public clientService: ClientService) { 
 
   }
