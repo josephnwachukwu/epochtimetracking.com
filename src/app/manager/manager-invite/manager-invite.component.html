@@ -1,0 +1,24 @@
+<div class="container" *ngIf="invite | async as invite">
+	<div class="box">
+		<div class="columns">
+			<div class="column is-12">
+				<h2 class="title is-2">Welcome to Epoch</h2>
+				<p><strong>{{invite.userName}}</strong> is using epoch to manage and track his time and expences. </p>
+				<br>
+				<p><strong>{{invite.userName}}</strong> listed you <strong>{{invite.managerName}}</strong> as the manager at <strong>{{invite.clientName}}</strong></p>
+				<br>
+				<p>As a manager at {{invite.clientName}} you will be able to </p>
+				<br>
+				<ul>
+					<li>Approve, Reject, and Adjust Timesheets for any regsitered users working at <strong>{{invite.clientName}}</strong></li>
+					<li>Approve Vacations Time Off, and sick time for any registed users working at <strong>{{invite.clientName}}</strong> </li>
+				</ul>
+				<div class="level">
+					<div class="level-item">
+						<button class="button is-info is-medium">Continue Onboarding ></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
