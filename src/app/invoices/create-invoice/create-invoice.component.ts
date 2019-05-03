@@ -38,10 +38,11 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   billableHours = (lineItem) => {
+    console.log(lineItem)
   	let billableHours:number = 0
   	for(let i in lineItem.projects) {
-  		if( lineItem.projects[i].billable) {
-  			billableHours += lineItem.projects[i].total
+  		if(lineItem.projects[i].initiative.billable) {
+  			billableHours += parseInt(lineItem.projects[i].total)
   		}
   	}
   	lineItem.billableHours = billableHours
@@ -62,12 +63,12 @@ export class CreateInvoiceComponent implements OnInit {
   	}
   }
   calcSubtotal = () => {
-	let subtotal = 0;
-	for(let i in this.invoice.lineItems) {
-	  subtotal += this.invoice.lineItems[i].billableHours * this.invoice.agency.rate
-	}
-	this.invoice.subtotal = subtotal;
-	return subtotal;
+  	let subtotal = 0;
+  	for(let i in this.invoice.lineItems) {
+  	  subtotal += this.invoice.lineItems[i].billableHours * this.invoice.agency.rate
+  	}
+  	this.invoice.subtotal = subtotal;
+  	return subtotal;
   }
   calcTax = () => {
   	let amtWithTax = (this.invoice.subtotal * (parseInt(this.invoice.tax) / 100))
@@ -75,8 +76,10 @@ export class CreateInvoiceComponent implements OnInit {
   	return amtWithTax
   }
   calcFinalTotal = () => {
-  	let finalTotal = this.invoice.subtotal - this.invoice.taxAmount - this.invoice.discount;
+  	let finalTotal = 0;
+    finalTotal =  this.invoice.subtotal - this.invoice.taxAmount - this.invoice.discount;
   	this.invoice.finalTotal = finalTotal;
+    //console.log(this.invoice.subtotal, this.invoice.taxAmount, this.invoice.discount)
   	return finalTotal
   }
 

@@ -47,17 +47,35 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let lineItem of invoice.lineItems">
+				<tr *ngFor="let lineItem of invoice.lineItems; let i = index">
 					<td>{{lineItem.weekStarting}} - {{lineItem.weekEnding}}</td>
-					<td>{{lineItem.totalHours}}</td>
-					<td>{{invoice.agency.rate}}</td>
-					<td>{{lineItemTotal(lineItem.totalHours, invoice.agency.rate)}}</td>
+					<td>{{lineItem.billableHours | number: '1.1-3'}}</td>
+					<td>{{invoice.agency.rate | number: '1.1-3'}}</td>
+					<td>{{invoice.agency.rate * lineItem.billableHours}}</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
+					<td>Subtotal</td>
+					<td>{{invoice.subtotal  | number: '1.1-3' }}</td>
+				</tr>
+				<tr *ngIf="invoice.hasTax">
 					<td></td>
-					<td>{{calculateTotal(invoice)}}</td>
+					<td></td>
+					<td>Tax ({{invoice.tax | number: '1.1-3' }}%)</td>
+					<td>{{invoice.taxAmount  | number: '1.1-3' }}</td>
+				</tr>
+				<tr *ngIf="invoice.hasDiscount">
+					<td></td>
+					<td></td>
+					<td>Discount</td>
+					<td>{{invoice.discount  | number: '1.1-3' }}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><strong>Total</strong></td>
+					<td><strong>{{invoice.finalTotal  | number: '1.1-3' }}</strong></td>
 				</tr>
 			</tbody>
 		</table>
@@ -73,6 +91,12 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="columns">
+					<div class="column is-12 is-centered">
+						<span class="title is-5"> Thank you for your business</span>
+					</div>
+				</div>
 
 	</div>
 </div>

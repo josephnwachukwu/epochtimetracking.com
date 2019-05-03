@@ -34,7 +34,7 @@ export class TimesheetService {
       if (res && res.uid) {
         console.log('hi')
         this.userData = res;
-        this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid));
+        this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid).where('clientId', '==', 'AJv8CkggSHLAXzdcEECz'));
         
         this.timesheets = this.timesheetsCollection.snapshotChanges().pipe(
           map((arr:any[]) => {

@@ -1,7 +1,7 @@
 export class Invite  {
 	
 	// Manger Info
-	managerName: string;
+	managerName?: string;
 	managerEmail: string;
 
 	// User Info

@@ -1,3 +1,51 @@
-<p>
-  manager-register works!
-</p>
+<div class="container" *ngIf="invite | async as invite">
+	<div class="box">
+		<div class="columns">
+			<div class="column is-6">
+				<h3 class="title is-3">Register</h3>
+				<p>Just one more step and you're all set. </p>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-6">
+				<div class="field">
+					<span class="label">Email</span>
+					<div class="control">
+						<input class="input is-medium" name="email" [(ngModel)]="user.email">
+					</div>
+				</div>
+				<div class="field">
+					<span class="label">Password</span>
+					<div class="control">
+						<input class="input is-medium" type="password" name="password" [(ngModel)]="user.password">
+					</div>
+				</div>
+				<div class="field">
+					<span class="label">Confirm Password</span>
+					<div class="control">
+						<input class="input is-medium" type="password" name="confirmPassword" [(ngModel)]="confirmPassword">
+					</div>
+				</div>
+			</div>
+			<div class="column is-6">
+				<div class="field">
+					<span class="label">Client</span>
+					<div class="control">
+						<input class="input is-medium" [disabled]="true" name="client" [(ngModel)]="invite.clientName">
+					</div>
+				</div>
+				<div class="field">
+					<span class="label">Name</span>
+					<div class="control">
+						<input class="input is-medium" name="client" [(ngModel)]="user.displayName">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-12">
+				<button class="button is-success is-medium" [disabled]="user.password !== confirmPassword" (click)="register(user)">Complete Registration</button>
+			</div>
+		</div>
+	</div>	
+</div>

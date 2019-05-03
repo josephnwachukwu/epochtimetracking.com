@@ -28,7 +28,7 @@ export class Invoice {
 	// Total
 	finalTotal:number;
 	term: string;
-
+	//taxAmount: number;
 	// Discount
 	hasDiscount:boolean;
 	discount: number;
@@ -51,6 +51,7 @@ export class Invoice {
 		this.tax = 0;
 		this.subtotal = 0;
 		this.discount = 0;
+		this.taxAmount = 0;
 		this.for = 'Consulting Hours and/or Expenses';
 		this.term = 'Upon Reciept'
 		this.hasDiscount = false;

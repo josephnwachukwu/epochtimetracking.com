@@ -44,7 +44,10 @@ import { HomepageModule } from './homepage/homepage.module';
 import { ClientsModule } from './clients/clients.module';
 
 // Invoices 
-import { InvoicesModule } from './invoices/invoices.module'
+import { InvoicesModule } from './invoices/invoices.module';
+
+// Managers
+import { ManagerModule } from './manager/manager.module';
 
 // Shared Ui Components
 import { UiModule } from './ui/shared/ui.module';
@@ -78,6 +81,7 @@ import { environment } from '../environments/environment';
     DashboardModule,
     HomepageModule,
     InvoicesModule,
+    ManagerModule,
     AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
   ],
   providers: [AppConfigService],

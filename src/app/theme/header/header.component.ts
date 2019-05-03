@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 //import { AppConfigService } from '../../app.config';
 import { AuthService } from '../../auth/auth.service';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'main-nav',
@@ -8,10 +9,11 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   show = false;
-  constructor(public auth: AuthService) {
+  clientId:string
+  constructor(public auth: AuthService, private route: ActivatedRoute) {
 
   }
   toggleCollapse() {
@@ -20,4 +22,12 @@ export class HeaderComponent {
   logout() {
   	this.auth.signOut()
   }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.clientId = params.get("id")
+      console.log('ci', this.clientId)
+    })
+  }
 }
+

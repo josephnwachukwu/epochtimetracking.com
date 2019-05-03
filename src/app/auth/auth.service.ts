@@ -10,27 +10,31 @@ import { NotifyService } from './shared/notifications/notify.service';
 import { Observable, of } from 'rxjs';
 import { switchMap, startWith, tap, filter } from 'rxjs/operators';
 
-interface User {
-  uid: string;
-  email?: string | null;
-  photoURL?: string | null;
-  displayName?: string;
-  companyName?: string;
-  companyID?: string | null;
-  tier?: string | null;
-  managerName?: string | null;
-  managerID?: string | null;
-  managerVerified?: boolean | null,
-  managerEmail?: string | null,
-  businessName?: string | null,
-  taxIdType?: string | null,
-  taxID?: string | null,
-}
+import { User } from '../shared/models/user.model'
+
+// interface User {
+//   uid: string;
+//   email?: string;
+//   photoURL?: string;
+//   displayName?: string;
+//   userName?: string;
+//   firstName?:string;
+//   lastName?:string;
+//   isAdmin?:boolean;
+
+//   tier?: string;
+//   //Company Informatoin
+//   //company?:any;
+  
+//   //Agency Information
+//   isThroughAgency?:boolean;
+//   //agency?:any;
+// }
 
 @Injectable()
 export class AuthService {
 
-  user: Observable<User>;
+    user: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -108,6 +112,16 @@ export class AuthService {
       .catch(error => this.handleError(error));
   }
 
+  managerEmailSignUp(u:any) {
+    return this.afAuth.auth
+    .createUserWithEmailAndPassword(u.email, u.password)
+    .then(credential => {
+       this.notify.update('Thanks for registering with epoch!', 'success');
+       return this.updateManagerData(credential.user, u.displayName)
+      })
+      .catch(error => this.handleError(error));
+  }
+
   emailLogin(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
@@ -142,9 +156,22 @@ export class AuthService {
   }
 
   // Sets user data to firestore after succesful login
-  updateUserData(user: User) {
-
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  updateUserData(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     return userRef.set(user);
+  }
+
+  updateManagerData(user: any, name:string)  {
+    console.log(`the ${user.uid}`)
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: name,
+      photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
+      tier: 'manager'
+    };
+    return userRef.set(data);
+    alert('hi')
   }
 }
