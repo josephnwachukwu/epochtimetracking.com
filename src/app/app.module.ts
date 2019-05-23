@@ -54,6 +54,7 @@ import { UiModule } from './ui/shared/ui.module';
 
 // Environment Variables
 import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { environment } from '../environments/environment';
     InvoicesModule,
     ManagerModule,
     AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [AppConfigService],
   bootstrap: [

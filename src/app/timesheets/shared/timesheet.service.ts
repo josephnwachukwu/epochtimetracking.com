@@ -27,15 +27,15 @@ export class TimesheetService {
   events: string[] = [];
   dates:any[] = [];
   userData:any;
-
+  currentClient:string;
   
-  constructor( private afs:AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth, public route: ActivatedRoute) {
+  constructor( private afs:AngularFirestore, private authService: AuthService, public afAuth: AngularFireAuth, public route: ActivatedRoute, public router: Router) {
+    //console.log(this.router.parseUrl(this.router.url).root.children.primary.segments[1].toString())
+    this.currentClient = this.router.parseUrl(this.router.url).root.children.primary.segments[1].toString();
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
-        console.log('hi')
         this.userData = res;
-        this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid).where('clientId', '==', 'AJv8CkggSHLAXzdcEECz'));
-        
+        this.timesheetsCollection = this.afs.collection('timesheets', (ref) => ref.where('uid', '==', this.userData.uid).where('clientId', '==', this.currentClient));
         this.timesheets = this.timesheetsCollection.snapshotChanges().pipe(
           map((arr:any[]) => {
             return arr.map((snap) => {
@@ -46,6 +46,7 @@ export class TimesheetService {
         );
       } 
     });
+
   }
 
   getData = (): Observable<Timesheet[]> => {
