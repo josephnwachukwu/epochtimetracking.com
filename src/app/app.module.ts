@@ -17,10 +17,12 @@ import { ThemeModule } from './theme/theme.module';
 import { AppConfigService } from './app.config';
 
 ///// Start FireStarter
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 ///// End FireStarter
 
+import { HttpClientModule } from '@angular/common/http'
 // Auth
 import { AuthModule } from './auth/auth.module';
 
@@ -84,6 +86,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     InvoicesModule,
     ManagerModule,
     AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [AppConfigService],

@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ManagerService } from '../manager.service' 
 
 // Firebase
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Invite } from '../models/invite.model'
 // RxJs

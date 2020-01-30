@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 
 //import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth'
 
 import { Timesheet } from './timesheet.model';
 import { WorkWeek } from './workweek.model'

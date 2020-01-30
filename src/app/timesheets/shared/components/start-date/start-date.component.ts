@@ -10,7 +10,7 @@ import { MatDatepicker, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angula
   styleUrls: ['./start-date.component.scss']
 })
 export class StartDateComponent implements OnInit {
-	@ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
+	@ViewChild(MatDatepicker, {static:false}) datepicker: MatDatepicker<Date>;
 	date:string;
   constructor(public tss: TimesheetService, public dialogRef: MatDialogRef<StartDateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }

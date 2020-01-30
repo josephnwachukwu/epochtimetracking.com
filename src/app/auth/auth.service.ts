@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { NotifyService } from './shared/notifications/notify.service';
 
 import { Observable, of } from 'rxjs';
@@ -34,7 +34,7 @@ import { User } from '../shared/models/user.model'
 @Injectable()
 export class AuthService {
 
-    user: Observable<User>;
+    user: Observable<User | null>;
 
   constructor(
     private afAuth: AngularFireAuth,

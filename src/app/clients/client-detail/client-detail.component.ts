@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 
 
 // Firebase
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 // RxJs
 import { Observable } from 'rxjs';
